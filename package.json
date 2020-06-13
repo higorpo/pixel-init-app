@@ -38,6 +38,7 @@
     "@types/react-navigation": "^3.4.0",
     "@types/styled-components": "^5.1.0",
     "@types/yup": "^0.29.3",
+    "babel-plugin-root-import": "^6.5.0",
     "babel-preset-expo": "~8.1.0",
     "typescript": "~3.8.3"
   },
