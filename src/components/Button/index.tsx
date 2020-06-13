@@ -16,7 +16,7 @@ const Button: React.FC<IButtonProps> = React.memo((props) => {
 
     return (
         // @ts-ignore
-        <ButtonStyle color={color}>
+        <ButtonStyle {...props} color={color}>
             <View>
                 <Label color={color}>{label}</Label>
             </View>
