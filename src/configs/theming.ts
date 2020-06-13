@@ -2,7 +2,8 @@ import { Theme as NavigationThemeProps, DarkTheme } from "@react-navigation/nati
 
 interface IThemeProps {
     colors: {
-        grey5: string
+        grey5: string,
+        grey6: string
     }
 }
 
@@ -15,7 +16,8 @@ const Theme: ThemeProps = {
         ...DarkTheme.colors,
         primary: "#327E83",
         background: "#121214",
-        grey5: "#E0E0E0"
+        grey5: "#E0E0E0",
+        grey6: "#F2F2F2"
     }
 }
 
