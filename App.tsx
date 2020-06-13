@@ -8,6 +8,10 @@ import {
 	Roboto_700Bold
 } from '@expo-google-fonts/roboto';
 
+import Theme from './src/configs/theming';
+import { ThemeProvider } from 'styled-components';
+import { StatusBar } from 'react-native';
+
 const App: React.FC = () => {
 	const [fontsLoaded] = useFonts({
 		Roboto_400Regular,
@@ -19,8 +23,11 @@ const App: React.FC = () => {
 	}
 
 	return (
-		<NavigationContainer>
-			<Routes />
+		<NavigationContainer theme={Theme}>
+			<StatusBar barStyle="light-content" backgroundColor="#121214" />
+			<ThemeProvider theme={Theme}>
+				<Routes />
+			</ThemeProvider>
 		</NavigationContainer>
 	);
 }
