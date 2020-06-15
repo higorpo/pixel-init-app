@@ -26,7 +26,7 @@ const TextInput: React.FC<ITextInputProps> = (props) => {
     return (
         <View style={props.containerStyle}>
             {/* @ts-ignore */}
-            <TextInputWrapper {...props} onFocus={handleOnFocus} />
+            <TextInputWrapper {...props} keyboardAppearance="dark" onFocus={handleOnFocus} />
             {
                 props.errors && props.errors.map(error => <FieldError key={error}>{error}</FieldError>)
             }
