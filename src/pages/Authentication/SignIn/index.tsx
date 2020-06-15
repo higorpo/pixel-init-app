@@ -1,12 +1,73 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Keyboard } from 'react-native';
+import * as Yup from 'yup';
 import { Container, ImageLogo } from './styles';
-import { BackButtonNavigator, Button } from '~/components';
-import { Title } from '~/components/Typography';
+import { BackButtonNavigator, Button, TextInput } from '~/components';
+import { Title, Caption } from '~/components/Typography';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
+
+    /**
+     * States
+     */
+    const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
+
+    const [fieldMail, setFieldMail] = useState<string>("");
+    const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
+    const [fieldPassword, setFieldPassword] = useState<string>("");
+    const [fieldPasswordErrors, setFieldPasswordErrors] = useState<string[]>([]);
+
+    /**
+     * Effects
+     */
+    useEffect(() => {
+        const keyboardDidShow = Keyboard.addListener("keyboardDidShow", () => setIsLogoVisible(false));
+        const keyboardDidHide = Keyboard.addListener("keyboardDidHide", () => setIsLogoVisible(true));
+
+        return () => {
+            keyboardDidShow.remove();
+            keyboardDidHide.remove();
+        }
+    }, [])
+
+    /**
+     * Handles
+     */
+    async function handleSubmit() {
+        setFieldMailErrors([]);
+        setFieldPasswordErrors([]);
+
+        const schema = Yup.object().shape({
+            mail: Yup.string().email("você precisa digitar um e-mail válido").required("e-mail é um campo obrigatório"),
+            password: Yup.string().required("senha é um campo obrigatório").min(5, "sua senha deve ter no mínimo 5 caracteres").max(15, "sua senha deve ter no máximo 15 caracteres")
+        });
+
+        try {
+            await schema.validate({
+                mail: fieldMail,
+                password: fieldPassword
+            }, {
+                abortEarly: false
+            });
+
+            console.log("passou");
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                error.inner.map(fieldError => {
+                    switch (fieldError.path) {
+                        case "mail":
+                            setFieldMailErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "password":
+                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                    }
+                })
+            }
+        }
+    }
 
     return (
         <Container>
@@ -15,10 +76,40 @@ const SignIn: React.FC = () => {
             </View>
 
             <View style={{ flex: 1 }}>
-                <ImageLogo />
+                {isLogoVisible && <ImageLogo />}
 
                 <View style={{ marginTop: "auto", marginBottom: "auto" }}>
                     <Title>Entre em sua conta</Title>
+                    <TextInput
+                        placeholder="Digite seu e-mail"
+                        value={fieldMail}
+                        onChangeText={text => setFieldMail(text)}
+                        containerStyle={{ marginBottom: 10 }}
+                        errors={fieldMailErrors}
+                        onFieldErrorsChange={() => setFieldMailErrors([])}
+                        autoCapitalize="none"
+                        autoFocus={false}
+                        autoCorrect={true}
+                        autoCompleteType="email"
+                    />
+                    <TextInput
+                        placeholder="Digite sua senha"
+                        value={fieldPassword}
+                        onChangeText={text => setFieldPassword(text)}
+                        errors={fieldPasswordErrors}
+                        onFieldErrorsChange={() => setFieldPasswordErrors([])}
+                        autoCapitalize="none"
+                        autoFocus={false}
+                        autoCorrect={false}
+                        autoCompleteType="password"
+                        secureTextEntry={true}
+                    />
+                    <Caption style={{
+                        marginLeft: "auto",
+                        marginTop: 5
+                    }}>
+                        Esqueceu sua senha?
+                    </Caption>
                 </View>
 
                 <Button
@@ -27,6 +118,7 @@ const SignIn: React.FC = () => {
                     style={{
                         marginTop: "auto"
                     }}
+                    onPress={handleSubmit}
                 />
             </View>
         </Container>
