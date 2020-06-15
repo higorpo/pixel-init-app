@@ -5,6 +5,7 @@ import Welcome from './Authentication/Welcome';
 import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import Home from './Home';
+import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -57,6 +58,13 @@ const Routes: React.FC = () => {
                                 component={SignIn}
                                 options={{
                                     headerTitle: "Entrar"
+                                }}
+                            />
+                            <StackNavigator.Screen
+                                name="RecoverPass"
+                                component={RecoverPass}
+                                options={{
+                                    headerTitle: "Recuperar senha"
                                 }}
                             />
                             <StackNavigator.Screen

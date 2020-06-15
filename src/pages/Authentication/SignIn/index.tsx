@@ -2,8 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, Keyboard } from 'react-native';
 import * as Yup from 'yup';
-import { Container, ImageLogo } from './styles';
-import { BackButtonNavigator, Button, TextInput } from '~/components';
+import { ImageLogo } from './styles';
+import { BackButtonNavigator, Button, TextInput, Container } from '~/components';
 import { Title, Caption } from '~/components/Typography';
 
 const SignIn: React.FC = () => {
@@ -104,10 +104,13 @@ const SignIn: React.FC = () => {
                         autoCompleteType="password"
                         secureTextEntry={true}
                     />
-                    <Caption style={{
-                        marginLeft: "auto",
-                        marginTop: 5
-                    }}>
+                    <Caption
+                        style={{
+                            marginLeft: "auto",
+                            marginTop: 5
+                        }}
+                        onPress={() => navigation.navigate("RecoverPass")}
+                    >
                         Esqueceu sua senha?
                     </Caption>
                 </View>

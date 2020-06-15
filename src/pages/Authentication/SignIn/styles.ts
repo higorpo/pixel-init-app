@@ -4,11 +4,6 @@ import styled from 'styled-components/native';
 const loginBackground = require("assets/login-background.png");
 const logo = require("assets/green-logo.png");
 
-export const Container = styled.View`
-    flex: 1;
-    padding: 20px;
-`;
-
 export const ImageLogo = styled.Image.attrs({
     source: logo
 }) <ImageProps>`
