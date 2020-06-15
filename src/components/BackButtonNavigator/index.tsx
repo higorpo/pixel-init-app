@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 interface IBackButtonNavigatorProps {
     style?: StyleProp<ViewStyle>,
+    onPress?: () => void
 }
 
 const BackButtonNavigator: React.FC<IBackButtonNavigatorProps> = (props) => {
@@ -13,7 +14,7 @@ const BackButtonNavigator: React.FC<IBackButtonNavigatorProps> = (props) => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={.7}>
+        <TouchableOpacity onPress={props.onPress ? props.onPress : () => navigation.goBack()} activeOpacity={.7}>
             <View
                 style={[{
                     flexDirection: "row",
