@@ -1,1 +1,1 @@
-export { Title } from "./styles";
+export { Title, Caption } from "./styles";
