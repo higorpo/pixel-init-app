@@ -27,10 +27,3 @@ export const ImageLogo = styled.Image.attrs({
 }) <ImageProps>`
     
 `;
-
-export const Title = styled.Text`
-    font-family: "Roboto_700Bold";
-    font-size: 27px;
-    color: ${props => props.theme.colors.grey6};
-    margin-bottom: 23px;
-`;

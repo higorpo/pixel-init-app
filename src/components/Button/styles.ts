@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
 
-interface IButton {
+interface IButtonProps {
     color: "primary" | "secondary"
 }
 
 export const Button = styled.TouchableOpacity.attrs({
     activeOpacity: .8
-})<IButton>(props => `
+})<IButtonProps>(props => `
     background-color: ${props.color == "primary" ? props.theme.colors.primary : "white"};
     height: 48px;
     border-radius: 10px;
@@ -16,11 +16,11 @@ export const Button = styled.TouchableOpacity.attrs({
     justify-content: center;
 `);
 
-interface ILabel {
+interface ILabelProps {
     color: "primary" | "secondary"
 }
 
-export const Label = styled.Text<ILabel>`
+export const Label = styled.Text<ILabelProps>`
     font-family: "Roboto_700Bold";
     font-style: normal;
     font-weight: bold;

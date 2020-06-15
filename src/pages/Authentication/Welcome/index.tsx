@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Platform, StatusBar } from 'react-native';
-import { Button } from '../../../components';
-import { Container, ImageContainer, ImageLogo, Title } from './styles';
+import { Button } from '~/components';
+import { Title } from '~/components/Typography';
+import { Container, ImageContainer, ImageLogo } from './styles';
 
 const Welcome: React.FC = () => {
     const navigation = useNavigation();
@@ -16,7 +17,7 @@ const Welcome: React.FC = () => {
             >
                 <ImageLogo />
             </ImageContainer>
-            <Title>
+            <Title size={27} style={{ marginBottom: 23 }}>
                 Entre no aplicativo para ter acesso as informações do evento.
             </Title>
             <Button
