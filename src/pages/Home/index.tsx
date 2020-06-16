@@ -19,7 +19,7 @@ export interface ISpeech {
 const speeches: ISpeech[] = [
     {
         category: "academic",
-        speech_day: new Date("2020-07-09 18:45"),
+        speech_day: new Date(2020, 6, 9, 18, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -27,7 +27,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "technician",
-        speech_day: new Date("2020-07-09 19:45"),
+        speech_day: new Date(2020, 6, 9, 19, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -35,7 +35,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "market",
-        speech_day: new Date("2020-07-09 20:45"),
+        speech_day: new Date(2020, 6, 9, 20, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -43,7 +43,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "academic",
-        speech_day: new Date("2020-07-16 18:45"),
+        speech_day: new Date(2020, 6, 16, 18, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -51,7 +51,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "technician",
-        speech_day: new Date("2020-07-16 19:45"),
+        speech_day: new Date(2020, 6, 16, 19, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -59,7 +59,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "market",
-        speech_day: new Date("2020-07-16 20:45"),
+        speech_day: new Date(2020, 6, 16, 20, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -67,7 +67,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "academic",
-        speech_day: new Date("2020-07-23 18:45"),
+        speech_day: new Date(2020, 6, 23, 18, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -75,7 +75,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "technician",
-        speech_day: new Date("2020-07-23 19:45"),
+        speech_day: new Date(2020, 6, 23, 19, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -83,7 +83,7 @@ const speeches: ISpeech[] = [
     },
     {
         category: "market",
-        speech_day: new Date("2020-07-23 20:45"),
+        speech_day: new Date(2020, 6, 23, 20, 45),
         name: "Nome da palestra",
         presenter: "Nome da pessoa",
         presenter_description: "programador na Netflix",
@@ -124,8 +124,8 @@ const Home: React.FC = () => {
                         <Text size={20}>09/07, quinta-feira</Text>
 
                         {
-                            speeches.filter(speech => speech.speech_day.getDate() === 9).map(speech => (
-                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
+                            speeches.filter(speech => speech.speech_day.getDate() === 9).map((speech, index) => (
+                                <SpeechContainer key={index} onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>
@@ -137,15 +137,15 @@ const Home: React.FC = () => {
 
                         <Caption style={{ marginTop: 10 }}>
                             Clique para expandir detalhes.
-                    </Caption>
+                        </Caption>
                     </View>
 
                     <View style={{ marginTop: 40 }}>
                         <Text size={20}>16/07, quinta-feira</Text>
 
                         {
-                            speeches.filter(speech => speech.speech_day.getDate() === 16).map(speech => (
-                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
+                            speeches.filter(speech => speech.speech_day.getDate() === 16).map((speech, index) => (
+                                <SpeechContainer key={index} onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>
@@ -164,8 +164,8 @@ const Home: React.FC = () => {
                         <Text size={20}>23/07, quinta-feira</Text>
 
                         {
-                            speeches.filter(speech => speech.speech_day.getDate() === 23).map(speech => (
-                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
+                            speeches.filter(speech => speech.speech_day.getDate() === 23).map((speech, index) => (
+                                <SpeechContainer key={index} onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>

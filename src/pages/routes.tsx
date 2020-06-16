@@ -6,13 +6,18 @@ import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import Home from './Home';
 import Speech from './Speech';
+import Pixelthon from './Pixelthon';
 import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
 
 const BottomTabRoutes: React.FC = () => {
+    const navigation = useNavigation();
+
     return (
         <BottomTabNavigator.Navigator
             initialRouteName="Home"
@@ -21,9 +26,27 @@ const BottomTabRoutes: React.FC = () => {
                 name="Home"
                 component={Home}
                 options={{
-                    tabBarLabel: "Início",
+                    tabBarLabel: "Cronograma",
                     tabBarIcon: ({ size, color, focused }) => {
-                        return <MaterialCommunityIcons name="home" size={size} color={color} />
+                        return (
+                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Home")}>
+                                <MaterialCommunityIcons name="calendar-clock" size={size} color={color} />
+                            </TouchableOpacity>
+                        )
+                    }
+                }}
+            />
+            <BottomTabNavigator.Screen
+                name="Pixelthon"
+                component={Pixelthon}
+                options={{
+                    tabBarLabel: "Pixelthon",
+                    tabBarIcon: ({ size, color, focused }) => {
+                        return (
+                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Pixelthon")}>
+                                <AntDesign name="codesquare" size={size} color={color} />
+                            </TouchableOpacity>
+                        )
                     }
                 }}
             />
