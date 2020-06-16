@@ -5,8 +5,9 @@ import { Header, LogoImage, ProfileImage, UserName, SpeechContainer, SpeechTime,
 import { useTheme } from 'styled-components';
 import { Title, Text, Caption } from '~/components/Typography';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-interface ISpeech {
+export interface ISpeech {
     category: "academic" | "technician" | "market",
     speech_day: Date,
     name: string,
@@ -92,6 +93,7 @@ const speeches: ISpeech[] = [
 
 const Home: React.FC = () => {
     const theme = useTheme();
+    const navigation = useNavigation();
 
     return (
         <View style={{ flex: 1 }}>
@@ -99,8 +101,8 @@ const Home: React.FC = () => {
                 <LogoImage />
                 <TouchableOpacity activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
                     <UserName>
-                        Higor Oliveira
-                </UserName>
+                        Higor
+                    </UserName>
                     <ProfileImage />
                 </TouchableOpacity>
             </Header>
@@ -123,7 +125,7 @@ const Home: React.FC = () => {
 
                         {
                             speeches.filter(speech => speech.speech_day.getDate() === 9).map(speech => (
-                                <SpeechContainer speechCategory={speech.category}>
+                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>
@@ -143,7 +145,7 @@ const Home: React.FC = () => {
 
                         {
                             speeches.filter(speech => speech.speech_day.getDate() === 16).map(speech => (
-                                <SpeechContainer speechCategory={speech.category}>
+                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>
@@ -163,7 +165,7 @@ const Home: React.FC = () => {
 
                         {
                             speeches.filter(speech => speech.speech_day.getDate() === 23).map(speech => (
-                                <SpeechContainer speechCategory={speech.category}>
+                                <SpeechContainer onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
                                         <SpeechName>{speech.name}</SpeechName>

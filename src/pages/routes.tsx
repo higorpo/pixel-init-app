@@ -5,6 +5,7 @@ import Welcome from './Authentication/Welcome';
 import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import Home from './Home';
+import Speech from './Speech';
 import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -47,6 +48,10 @@ const Routes: React.FC = () => {
                             <StackNavigator.Screen
                                 name="Tabs"
                                 component={BottomTabRoutes}
+                            />
+                            <StackNavigator.Screen
+                                name="Speech"
+                                component={Speech}
                             />
                         </>
                     )

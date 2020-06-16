@@ -7,6 +7,7 @@ import { Button as ButtonStyle, Label } from './styles';
 interface IButtonProps extends TouchableOpacityProps {
     label: string,
     color?: "primary" | "secondary",
+    textColor?: string,
     loading?: boolean
 }
 
@@ -16,7 +17,8 @@ const Button: React.FC<IButtonProps> = React.memo((props) => {
     const {
         label,
         color = "primary",
-        loading = false
+        loading = false,
+        textColor
     } = props;
 
     return (
@@ -27,7 +29,7 @@ const Button: React.FC<IButtonProps> = React.memo((props) => {
                     loading == true ?
                         <ActivityIndicator color={color == "primary" ? "white" : theme.colors.primary} />
                         :
-                        <Label color={color}>{label}</Label>
+                        <Label color={color} style={textColor ? { color: textColor } : null}>{label}</Label>
                 }
             </View>
         </ButtonStyle>

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 interface IBackButtonNavigatorProps {
     style?: StyleProp<ViewStyle>,
+    color?: string,
     onPress?: () => void
 }
 
@@ -20,9 +21,9 @@ const BackButtonNavigator: React.FC<IBackButtonNavigatorProps> = (props) => {
                     flexDirection: "row",
                     alignItems: "center"
                 }, props.style]}>
-                <MaterialCommunityIcons name="arrow-left" size={24} color={theme.colors.primary} />
+                <MaterialCommunityIcons name="arrow-left" size={24} color={props.color ? props.color : theme.colors.primary} />
                 <Text style={{
-                    color: theme.colors.primary,
+                    color: props.color ? props.color : theme.colors.primary,
                     marginLeft: 5
                 }}>Voltar</Text>
             </View>
