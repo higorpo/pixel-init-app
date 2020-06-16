@@ -5,7 +5,8 @@ import { AppLoading } from 'expo';
 import {
 	useFonts,
 	Roboto_400Regular,
-	Roboto_700Bold
+	Roboto_700Bold,
+	Roboto_300Light
 } from '@expo-google-fonts/roboto';
 
 import Theme from './src/configs/theming';
@@ -15,6 +16,7 @@ import { StatusBar } from 'react-native';
 const App: React.FC = () => {
 	const [fontsLoaded] = useFonts({
 		Roboto_400Regular,
+		Roboto_300Light,
 		Roboto_700Bold
 	})
 

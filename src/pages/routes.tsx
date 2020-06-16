@@ -6,6 +6,7 @@ import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import Home from './Home';
 import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -18,6 +19,12 @@ const BottomTabRoutes: React.FC = () => {
             <BottomTabNavigator.Screen
                 name="Home"
                 component={Home}
+                options={{
+                    tabBarLabel: "Início",
+                    tabBarIcon: ({ size, color, focused }) => {
+                        return <MaterialCommunityIcons name="home" size={size} color={color} />
+                    }
+                }}
             />
         </BottomTabNavigator.Navigator>
     )
@@ -34,7 +41,7 @@ const Routes: React.FC = () => {
             }}
         >
             {
-                false ?
+                true ?
                     (
                         <>
                             <StackNavigator.Screen
