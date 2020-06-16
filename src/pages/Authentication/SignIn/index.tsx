@@ -14,9 +14,9 @@ const SignIn: React.FC = () => {
      */
     const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
 
-    const [fieldMail, setFieldMail] = useState<string>("");
+    const [fieldMail, setFieldMail] = useState<string>("teste@ejpixel.com.br");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
-    const [fieldPassword, setFieldPassword] = useState<string>("");
+    const [fieldPassword, setFieldPassword] = useState<string>("abc123");
     const [fieldPasswordErrors, setFieldPasswordErrors] = useState<string[]>([]);
 
     /**
@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
                 abortEarly: false
             });
 
-            console.log("passou");
+            navigation.navigate("Home");
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 error.inner.map(fieldError => {

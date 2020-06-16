@@ -5,6 +5,7 @@ import { BackButtonNavigator, TextInput, Button } from '~/components';
 import { ImageLogo } from './styles';
 import { Caption, Title } from '~/components/Typography';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 const SignUp: React.FC = () => {
     const navigation = useNavigation();
@@ -34,6 +35,49 @@ const SignUp: React.FC = () => {
             keyboardDidHide.remove();
         }
     }, [])
+
+    /**
+     * Handles
+     */
+    async function handleSubmit() {
+        setFieldMailErrors([]);
+        setFieldTicketNumberErrors([]);
+        setFieldPasswordErrors([]);
+
+        const schema = Yup.object().shape({
+            mail: Yup.string().email("você precisa digitar um e-mail válido").required("e-mail é um campo obrigatório"),
+            ticket_number: Yup.string().required("você precisa digitar o número do ingresso fornecido no Sympla").length(10, "o número do ingresso deve ter 10 caracteres"),
+            password: Yup.string().required("senha é um campo obrigatório").min(5, "sua senha deve ter no mínimo 5 caracteres").max(15, "sua senha deve ter no máximo 15 caracteres")
+        });
+
+        try {
+            await schema.validate({
+                mail: fieldMail,
+                ticket_number: fieldTicketNumber,
+                password: fieldPassword
+            }, {
+                abortEarly: false
+            });
+
+            navigation.navigate("Home");
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                error.inner.map(fieldError => {
+                    switch (fieldError.path) {
+                        case "mail":
+                            setFieldMailErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "ticket_number":
+                            setFieldTicketNumberErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "password":
+                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                    }
+                })
+            }
+        }
+    }
 
     return (
         <Container>
@@ -101,7 +145,7 @@ const SignUp: React.FC = () => {
                         marginTop: "auto"
                     }}
                     loading={false}
-                    onPress={() => null}
+                    onPress={handleSubmit}
                 />
             </View>
         </Container>

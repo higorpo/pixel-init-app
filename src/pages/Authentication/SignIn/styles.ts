@@ -8,5 +8,5 @@ export const ImageLogo = styled.Image.attrs({
     source: logo
 }) <ImageProps>`
     margin: 0px auto;
-    margin-top: 30px;
+    margin-top: auto;
 `;
