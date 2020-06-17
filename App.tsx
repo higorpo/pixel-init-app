@@ -12,6 +12,9 @@ import {
 import Theme from './src/configs/theming';
 import { ThemeProvider } from 'styled-components';
 import { StatusBar } from 'react-native';
+import { Provider } from 'react-redux';
+import { store, persistor } from '~/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const App: React.FC = () => {
 	const [fontsLoaded] = useFonts({
@@ -28,7 +31,11 @@ const App: React.FC = () => {
 		<NavigationContainer theme={Theme}>
 			<StatusBar barStyle="light-content" backgroundColor="#121214" />
 			<ThemeProvider theme={Theme}>
-				<Routes />
+				<Provider store={store}>
+					<PersistGate loading={null} persistor={persistor}>
+						<Routes />
+					</PersistGate>
+				</Provider>
 			</ThemeProvider>
 		</NavigationContainer>
 	);

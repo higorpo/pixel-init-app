@@ -16,12 +16,12 @@ export const LogoImage = styled.Image.attrs({
 `;
 
 export const ProfileImage = styled.Image.attrs({
-    source: userProfile
+    source: userProfile,
 })`
     width: 40px;
     height: 40px;
     border-radius: 100px;
-    border: 2px solid;
+    border-width: 2px;
     border-color: ${props => props.theme.colors.primary};
 `;
 

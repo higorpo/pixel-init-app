@@ -5,16 +5,20 @@ import * as Yup from 'yup';
 import { ImageLogo } from './styles';
 import { BackButtonNavigator, Button, TextInput, Container } from '~/components';
 import { Title, Caption } from '~/components/Typography';
+import User from '~/services/User';
+import AuthenticationActions from '~/store/ducks/authentication/actions';
+import { useDispatch } from 'react-redux';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     /**
      * States
      */
     const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
 
-    const [fieldMail, setFieldMail] = useState<string>("teste@ejpixel.com.br");
+    const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
     const [fieldPassword, setFieldPassword] = useState<string>("abc123");
     const [fieldPasswordErrors, setFieldPasswordErrors] = useState<string[]>([]);
@@ -52,11 +56,27 @@ const SignIn: React.FC = () => {
                 abortEarly: false
             });
 
-            navigation.navigate("Home");
+            const login = await User.loginAttempt(fieldMail, fieldPassword);
+
+            if (login.data.token) {
+                dispatch(AuthenticationActions.setToken(login.data.token, login.data.user_id));
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
-                error.inner.map(fieldError => {
+                error.inner.forEach(fieldError => {
                     switch (fieldError.path) {
+                        case "mail":
+                            setFieldMailErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "password":
+                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                    }
+                })
+            } else if (error?.response?.data instanceof Array && error?.response?.status == 400 || error?.response?.status == 401) {
+                const errors = error?.response?.data;
+                errors.forEach((fieldError: any) => {
+                    switch (fieldError.field) {
                         case "mail":
                             setFieldMailErrors(oldState => [...oldState, fieldError.message])
                             break;

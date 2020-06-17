@@ -11,6 +11,9 @@ import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AuthenticationState } from '~/store/ducks/authentication/types';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '~/store';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -55,6 +58,8 @@ const BottomTabRoutes: React.FC = () => {
 }
 
 const Routes: React.FC = () => {
+    const authentication: AuthenticationState = useSelector((state: ApplicationState) => state.authentication);
+
     return (
         <StackNavigator.Navigator
             headerMode="none"
@@ -65,7 +70,7 @@ const Routes: React.FC = () => {
             }}
         >
             {
-                false ?
+                authentication.token != null ?
                     (
                         <>
                             <StackNavigator.Screen

@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, Keyboard } from 'react-native';
+import { View, Keyboard, Alert } from 'react-native';
 import { Container } from '../Welcome/styles';
 import { BackButtonNavigator, TextInput, Button } from '~/components';
 import { ImageLogo } from './styles';
 import { Caption, Title } from '~/components/Typography';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
+import User from '~/services/User';
+import api from '~/services/api';
+import Axios from 'axios';
+import { useDispatch } from 'react-redux';
+import AuthenticationActions from '~/store/ducks/authentication/actions';
 
 const SignUp: React.FC = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     /**
      * States
      */
     const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
 
-    const [fieldMail, setFieldMail] = useState<string>("");
+    const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
-    const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("");
+    const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("RGJAURC5GQ");
     const [fieldTicketNumberErrors, setFieldTicketNumberErrors] = useState<string[]>([]);
-    const [fieldPassword, setFieldPassword] = useState<string>("");
+    const [fieldPassword, setFieldPassword] = useState<string>("abc123");
     const [fieldPasswordErrors, setFieldPasswordErrors] = useState<string[]>([]);
 
 
@@ -59,11 +65,44 @@ const SignUp: React.FC = () => {
                 abortEarly: false
             });
 
-            navigation.navigate("Home");
+            // Remove os traços do número do ingresso se houver
+            const serializedTicketNumber = fieldTicketNumber.replace(/-/g, "");
+
+            // Faz a chamada a API
+            // const newUser = await User.createAccount(fieldMail, fieldPassword, serializedTicketNumber)
+
+            // Criou a conta, faz a autenticação
+            const login = await User.loginAttempt(fieldMail, fieldPassword);
+
+            if (login.data.token) {
+                dispatch(AuthenticationActions.setToken(login.data.token, login.data.user_id));
+            }
+
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
-                error.inner.map(fieldError => {
+                error.inner.forEach(fieldError => {
                     switch (fieldError.path) {
+                        case "mail":
+                            setFieldMailErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "ticket_number":
+                            setFieldTicketNumberErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                        case "password":
+                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                            break;
+                    }
+                })
+            }
+
+            if (error?.response?.data?.error == "TICKET_NUMBER_NOT_FOUND") {
+                setFieldTicketNumberErrors(["O número do ingresso informado não corresponde a nenhum ingresso cadastrado na plataforma do Sympla. Verifique seus dados e tente novamente!"]);
+            } else if (error?.response?.data?.error == "INCORRECT_EMAIL") {
+                setFieldMailErrors(["E-mail usado na compra do ingresso no Sympla não corresponde ao e-mail digitado no aplicativo do Pixel Init, verifique seus dados e tente novamente!"]);
+            } else if (error?.response?.data instanceof Array && error?.response?.status == 400 || error?.response?.status == 401) {
+                const errors = error?.response?.data;
+                errors.forEach((fieldError: any) => {
+                    switch (fieldError.field) {
                         case "mail":
                             setFieldMailErrors(oldState => [...oldState, fieldError.message])
                             break;
@@ -88,7 +127,7 @@ const SignUp: React.FC = () => {
                 {isLogoVisible && <ImageLogo />}
 
                 <View style={{ marginTop: "auto", marginBottom: "auto" }}>
-                    <Title style={{ marginBottom: 5 }}>Entre em sua conta</Title>
+                    <Title style={{ marginBottom: 5 }}>Crie uma conta</Title>
                     <Caption style={{ marginBottom: 20 }}>
                         Utilize suas informações de ingresso do
                         Sympla para criar uma conta no aplicativo do
@@ -113,7 +152,7 @@ const SignUp: React.FC = () => {
                         containerStyle={{ marginBottom: 10 }}
                         errors={fieldTicketNumberErrors}
                         onFieldErrorsChange={() => setFieldTicketNumberErrors([])}
-                        autoCapitalize="words"
+                        autoCapitalize="characters"
                         autoFocus={false}
                         autoCorrect={false}
                         autoCompleteType="off"
