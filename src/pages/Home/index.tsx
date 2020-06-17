@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, View, TouchableOpacity } from 'react-native';
+import { StatusBar, View, TouchableOpacity, Platform } from 'react-native';
 import { ScrollabeContainer, Container } from '~/components';
 import { Header, LogoImage, ProfileImage, UserName, SpeechContainer, SpeechTime, SpeechName, SpeechPresenter } from './styles';
 import { useTheme } from 'styled-components';
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header style={{ paddingTop: Constants.statusBarHeight + 20, display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Header style={{ paddingTop: Platform.OS == "ios" ? Constants.statusBarHeight + 20 : 20, display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <LogoImage />
                 <TouchableOpacity activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
                     <UserName>

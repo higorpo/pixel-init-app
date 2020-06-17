@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { ScrollabeContainer, Container, BackButtonNavigator, Button } from '~/components';
 import { useTheme } from 'styled-components';
 import { useRoute } from '@react-navigation/native';
@@ -52,7 +52,7 @@ const Speech: React.FC = () => {
         <View style={{ flex: 1 }}>
             <ScrollabeContainer>
                 <StatusBar barStyle="light-content" backgroundColor={color} />
-                <Header style={{ paddingTop: Constants.statusBarHeight + 20, backgroundColor: color }}>
+                <Header style={{ paddingTop: Platform.OS == "ios" ? Constants.statusBarHeight + 20 : 20, backgroundColor: color }}>
                     <BackButtonNavigator color="white" />
                     <Title style={{ marginTop: 10, marginBottom: 0 }} size={30}>{categoryTitle}</Title>
                     <Text>{categoryDescription}</Text>
