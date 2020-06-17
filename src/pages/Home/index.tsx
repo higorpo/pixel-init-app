@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components';
 import { Title, Text, Caption } from '~/components/Typography';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 
 export interface ISpeech {
     category: "academic" | "technician" | "market",
@@ -97,7 +98,7 @@ const Home: React.FC = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header style={{ display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Header style={{ paddingTop: Constants.statusBarHeight + 20, display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <LogoImage />
                 <TouchableOpacity activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
                     <UserName>

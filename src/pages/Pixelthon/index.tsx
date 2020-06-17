@@ -4,11 +4,12 @@ import { ScrollabeContainer, Container, Button } from '~/components';
 import { Title, Text, Caption } from '~/components/Typography';
 import { Header } from '../Home/styles';
 import { AntDesign } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 
 const Pixelthon: React.FC = () => {
     return (
         <View style={{ flex: 1 }}>
-            <Header style={{ paddingBottom: 20 }}>
+            <Header style={{ paddingTop: Constants.statusBarHeight + 20, paddingBottom: 20 }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <AntDesign name="codesquare" color="white" size={30} />
                     <Title style={{ marginBottom: 0, marginLeft: 10 }} size={30}>Pixelthon</Title>

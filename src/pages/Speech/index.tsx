@@ -6,6 +6,7 @@ import { useRoute } from '@react-navigation/native';
 import { ISpeech } from '~/pages/Home';
 import { Header } from './styles';
 import { Title, Text, Caption } from '~/components/Typography';
+import Constants from 'expo-constants';
 
 interface ISpeechRouteParams {
     speech: ISpeech
@@ -51,7 +52,7 @@ const Speech: React.FC = () => {
         <View style={{ flex: 1 }}>
             <ScrollabeContainer>
                 <StatusBar barStyle="light-content" backgroundColor={color} />
-                <Header style={{ backgroundColor: color }}>
+                <Header style={{ paddingTop: Constants.statusBarHeight + 20, backgroundColor: color }}>
                     <BackButtonNavigator color="white" />
                     <Title style={{ marginTop: 10, marginBottom: 0 }} size={30}>{categoryTitle}</Title>
                     <Text>{categoryDescription}</Text>

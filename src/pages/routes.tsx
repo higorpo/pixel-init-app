@@ -65,7 +65,7 @@ const Routes: React.FC = () => {
             }}
         >
             {
-                true ?
+                false ?
                     (
                         <>
                             <StackNavigator.Screen
