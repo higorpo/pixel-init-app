@@ -57,7 +57,7 @@ export const SpeechTime = styled.Text`
 `;
 
 export const SpeechName = styled.Text.attrs({
-    numberOfLines: 1
+    numberOfLines: 2
 })`
     color: white;
     font-family: "Roboto_400Regular";

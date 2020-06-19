@@ -21,8 +21,8 @@ const speeches: ISpeech[] = [
     {
         category: "academic",
         speech_day: new Date(2020, 6, 9, 18, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
+        name: "Por que escolher a pesquisa em tecnologia com um mercado tão promissor?",
+        presenter: "Jean Martina e Fernanda Gomes",
         presenter_description: "programador na Netflix",
         speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
                         <Text size={20}>09/07, quinta-feira</Text>
 
                         {
-                            speeches.filter(speech => speech.speech_day.getDate() === 9).map((speech, index) => (
+                            speeches.filter(speech => speech.speech_day.getDate() === 9 || speech.speech_day.getDate() === 17).map((speech, index) => (
                                 <SpeechContainer key={index} onPress={() => navigation.navigate("Speech", { speech })} speechCategory={speech.category}>
                                     <SpeechTime>{speech.speech_day.getHours()}:{speech.speech_day.getMinutes()}</SpeechTime>
                                     <View style={{ marginLeft: 15, flex: 1 }}>
