@@ -21,6 +21,8 @@ const SignUp: React.FC = () => {
      */
     const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
     const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("RGJAURC5GQ");
@@ -46,6 +48,8 @@ const SignUp: React.FC = () => {
      * Handles
      */
     async function handleSubmit() {
+        setLoading(true);
+
         setFieldMailErrors([]);
         setFieldTicketNumberErrors([]);
         setFieldPasswordErrors([]);
@@ -115,6 +119,8 @@ const SignUp: React.FC = () => {
                     }
                 })
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -180,10 +186,10 @@ const SignUp: React.FC = () => {
                 <Button
                     label="vamos lá"
                     color="secondary"
+                    loading={loading}
                     style={{
                         marginTop: "auto"
                     }}
-                    loading={false}
                     onPress={handleSubmit}
                 />
             </View>

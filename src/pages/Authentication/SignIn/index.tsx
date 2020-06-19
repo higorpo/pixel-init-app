@@ -18,6 +18,8 @@ const SignIn: React.FC = () => {
      */
     const [isLogoVisible, setIsLogoVisible] = useState<boolean>(true);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
     const [fieldPassword, setFieldPassword] = useState<string>("abc123");
@@ -40,6 +42,8 @@ const SignIn: React.FC = () => {
      * Handles
      */
     async function handleSubmit() {
+        setLoading(true);
+
         setFieldMailErrors([]);
         setFieldPasswordErrors([]);
 
@@ -86,6 +90,8 @@ const SignIn: React.FC = () => {
                     }
                 })
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -138,6 +144,7 @@ const SignIn: React.FC = () => {
                 <Button
                     label="entrar"
                     color="secondary"
+                    loading={loading}
                     style={{
                         marginTop: "auto"
                     }}

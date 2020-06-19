@@ -17,7 +17,7 @@ const persistConfig: PersistConfig<any> = {
     key: "root",
     storage: AsyncStorage,
     whitelist: [
-        // 'authentication',
+        'authentication',
     ],
     timeout: 0,
 }
