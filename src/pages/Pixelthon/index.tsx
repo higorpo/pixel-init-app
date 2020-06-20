@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Platform, Alert, RefreshControl } from 'react-native';
+import { View, Platform, Alert, RefreshControl, ActivityIndicator } from 'react-native';
 import { ScrollabeContainer, Container, Button } from '~/components';
 import { Title, Text, Caption } from '~/components/Typography';
 import { Header } from '../Home/styles';
@@ -189,6 +189,14 @@ const Pixelthon: React.FC = () => {
                 },
             }
         ])
+    }
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size={70} />
+            </View>
+        )
     }
 
     return (
