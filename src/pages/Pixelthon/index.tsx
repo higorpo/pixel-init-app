@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Platform, Alert } from 'react-native';
+import { View, Platform, Alert, RefreshControl } from 'react-native';
 import { ScrollabeContainer, Container, Button } from '~/components';
 import { Title, Text, Caption } from '~/components/Typography';
 import { Header } from '../Home/styles';
@@ -56,6 +56,7 @@ const Pixelthon: React.FC = () => {
      */
     const [loadingData, setLoadingData] = useState<boolean>(true);
     const [data, setData] = useState<IPixelthonProps | null>(null)
+    const [refreshing, setRefreshing] = useState<boolean>(true);
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -66,7 +67,17 @@ const Pixelthon: React.FC = () => {
      */
     useEffect(() => {
         setLoadingData(true);
+        loadData();
+    }, [])
 
+    useEffect(() => {
+        calculateTimeRemaining();
+    }, [])
+
+    /**
+     * Functions
+     */
+    function loadData() {
         api.get('/pixelthon/participant', {
             headers: {
                 date: (new Date()).toUTCString(),
@@ -82,10 +93,19 @@ const Pixelthon: React.FC = () => {
                 navigation.goBack();
                 Alert.alert("Erro", "Não foi possível carregar as informações do Pixelthon, tente novamente!");
             })
-            .finally(() => setLoadingData(false));
-    }, [])
+            .finally(() => {
+                setLoadingData(false);
+                setRefreshing(false);
+            });
+    }
 
-    useEffect(() => {
+    function onRefresh() {
+        setRefreshing(true);
+        calculateTimeRemaining();
+        loadData();
+    }
+
+    function calculateTimeRemaining() {
         // @ts-ignore
         var delta = Math.abs(new Date(2020, 6, 22, 13, 0) - new Date()) / 1000;
 
@@ -113,7 +133,7 @@ const Pixelthon: React.FC = () => {
             }
         }
 
-    }, [])
+    }
 
     /**
      * Handles
@@ -179,7 +199,9 @@ const Pixelthon: React.FC = () => {
                     <Title style={{ marginBottom: 0, marginLeft: 10 }} size={30}>Pixelthon</Title>
                 </View>
             </Header>
-            <ScrollabeContainer>
+            <ScrollabeContainer refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
                 <Container>
                     {
                         (!data?.groups_already_been_defined) &&
@@ -265,6 +287,8 @@ const Pixelthon: React.FC = () => {
                                     <UserItem key={colleague.id} data={colleague} />
                                 ))
                             }
+
+                            <Caption style={{ textAlign: "justify" }}>Para facilitar a comunicação, um grupo no WhatsApp será criado para este grupo pela equipe de produção do Pixelthon, aguarde!</Caption>
                         </View>
                     }
                 </Container>
