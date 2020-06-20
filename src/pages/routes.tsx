@@ -15,6 +15,7 @@ import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import Notifications from './Notifications';
+import Publications from './Publications';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -49,6 +50,20 @@ const BottomTabRoutes: React.FC = () => {
                         return (
                             <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Pixelthon")}>
                                 <AntDesign name="codesquare" size={size} color={color} />
+                            </TouchableOpacity>
+                        )
+                    }
+                }}
+            />
+            <BottomTabNavigator.Screen
+                name="Publications"
+                component={Publications}
+                options={{
+                    tabBarLabel: "Publicações",
+                    tabBarIcon: ({ size, color, focused }) => {
+                        return (
+                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Publications")}>
+                                <MaterialCommunityIcons name="comment-text" size={size} color={color} />
                             </TouchableOpacity>
                         )
                     }

@@ -6,13 +6,15 @@ import logger from 'redux-logger';
 
 import { AuthenticationState } from './ducks/authentication/types';
 import { NotificationsState } from './ducks/notifications/types';
+import { PublicationsState } from './ducks/publications/types';
 
 import rootReducer from "./ducks/rootReducer";
 import rootSaga from "./ducks/rootSaga";
 
 export interface ApplicationState {
     authentication: AuthenticationState,
-    notifications: NotificationsState
+    notifications: NotificationsState,
+    publications: PublicationsState
 }
 
 const persistConfig: PersistConfig<any> = {
