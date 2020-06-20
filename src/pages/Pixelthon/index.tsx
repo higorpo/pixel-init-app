@@ -93,9 +93,15 @@ const Pixelthon: React.FC = () => {
                                 if (response.data.error == "MAX_NUMBER_PARTICIPANTS_REACHED") {
                                     Alert.alert("Número máximo de participantes atingido",
                                         "Ooops! Parece que o número máximo de participantes permitidos para participar do Pixelthon já foi atingido :/");
+                                    setData((oldState: any) => {
+                                        return { ...oldState, participants: 1000 }
+                                    });
                                 } else if (response.data.error == "OUT_OF_REGISTRATION_DATE") {
                                     Alert.alert("Fora do prazo de inscrição",
                                         "O prazo de inscrição para o Pixelthon começa às 22h30 do dia 09/07 e vai até às 23h59 do dia 10/07!");
+                                    setData((oldState: any) => {
+                                        return { ...oldState, is_within_the_application_deadline: false }
+                                    });
                                 }
                             } else {
                                 Alert.alert("Erro...", "Parece que estamos com um problema em sua inscrição, tente novamente mais tarde!");
@@ -170,7 +176,7 @@ const Pixelthon: React.FC = () => {
                                     :
                                     <View style={{ marginTop: 20 }}>
                                         <Text style={{ color: "#F45656" }}>
-                                            O prazo de inscrição para o Pixelthon ainda não começou! Volte aqui a partir das 22h30 do dia 09/07 atéàs 23h59 do dia 10/07.
+                                            Você está fora do prazo de inscrição para o Pixelthon! Volte aqui a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
                                         </Text>
                                     </View>
                             }
