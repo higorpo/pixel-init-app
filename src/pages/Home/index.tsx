@@ -113,9 +113,11 @@ const Home: React.FC = () => {
                     <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Title size={32} style={{ flex: 1, marginRight: 30 }} numberOfLines={2}>
                             Bem-vindo, Higor Oliveira
-                    </Title>
+                        </Title>
 
-                        <MaterialCommunityIcons name="bell" size={50} color="white" style={{ marginLeft: "auto", transform: [{ rotate: "10deg" }] }} />
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Notifications")}>
+                            <MaterialCommunityIcons name="bell" size={50} color="white" style={{ marginLeft: "auto", transform: [{ rotate: "10deg" }] }} />
+                        </TouchableOpacity>
                     </View>
                 </Header>
                 <Container>

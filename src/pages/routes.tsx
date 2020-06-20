@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
+import Notifications from './Notifications';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -80,6 +81,10 @@ const Routes: React.FC = () => {
                             <StackNavigator.Screen
                                 name="Speech"
                                 component={Speech}
+                            />
+                            <StackNavigator.Screen
+                                name="Notifications"
+                                component={Notifications}
                             />
                         </>
                     )
