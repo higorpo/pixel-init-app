@@ -5,12 +5,14 @@ import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import logger from 'redux-logger';
 
 import { AuthenticationState } from './ducks/authentication/types';
+import { NotificationsState } from './ducks/notifications/types';
 
 import rootReducer from "./ducks/rootReducer";
 import rootSaga from "./ducks/rootSaga";
 
 export interface ApplicationState {
-    authentication: AuthenticationState
+    authentication: AuthenticationState,
+    notifications: NotificationsState
 }
 
 const persistConfig: PersistConfig<any> = {
