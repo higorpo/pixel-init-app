@@ -10,12 +10,38 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
+import { UserContainer, Avatar } from './styles';
+
+interface IColleagueProp {
+    id: number,
+    first_name: string,
+    last_name: string,
+    avatar: string,
+}
 
 interface IPixelthonProps {
     participants: number,
     is_participant: boolean,
-    is_within_the_application_deadline: boolean
+    is_within_the_application_deadline: boolean,
+    groups_already_been_defined?: boolean,
+    participant?: {
+        group: string
+    },
+    colleagues: IColleagueProp[]
 }
+
+interface IUserItemProps {
+    data: IColleagueProp
+}
+
+const UserItem: React.FC<IUserItemProps> = React.memo((props) => {
+    return (
+        <UserContainer>
+            <Avatar />
+            <Text>{props.data.first_name} {props.data.last_name}</Text>
+        </UserContainer>
+    )
+})
 
 const Pixelthon: React.FC = () => {
     const navigation = useNavigation();
@@ -33,13 +59,15 @@ const Pixelthon: React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [timeRemaining, setTimeRemaining] = useState<string>("...");
+
     /**
      * Effects
      */
     useEffect(() => {
         setLoadingData(true);
 
-        api.get('/pixelthon', {
+        api.get('/pixelthon/participant', {
             headers: {
                 date: (new Date()).toUTCString(),
                 Authorization: `Bearer ${authentication.token}`
@@ -57,6 +85,36 @@ const Pixelthon: React.FC = () => {
             .finally(() => setLoadingData(false));
     }, [])
 
+    useEffect(() => {
+        // @ts-ignore
+        var delta = Math.abs(new Date(2020, 6, 22, 13, 0) - new Date()) / 1000;
+
+        var days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+
+        var hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+
+        var minutes = Math.floor(delta / 60) % 60;
+
+
+        if (days >= 1) {
+            setTimeRemaining(`${days} ${days == 1 ? "dia" : "dias"}`)
+        } else {
+            if (hours >= 1) {
+                setTimeRemaining(`${hours} ${hours == 1 ? "hora" : "horas"}`)
+            } else {
+                if (minutes >= 1) {
+                    setTimeRemaining(`${minutes} ${minutes == 1 ? "minuto" : "minutos"}`)
+                } else {
+                    setTimeRemaining("entrega")
+                }
+
+            }
+        }
+
+    }, [])
+
     /**
      * Handles
      */
@@ -72,7 +130,7 @@ const Pixelthon: React.FC = () => {
                 onPress: () => {
                     setLoading(true);
 
-                    api.post(`/pixelthon`, null, {
+                    api.post(`/pixelthon/participant`, null, {
                         headers: {
                             date: (new Date()).toUTCString(),
                             Authorization: `Bearer ${authentication.token}`
@@ -124,7 +182,7 @@ const Pixelthon: React.FC = () => {
             <ScrollabeContainer>
                 <Container>
                     {
-                        true &&
+                        (!data?.groups_already_been_defined) &&
                         <View>
                             <Title style={{ marginBottom: 10 }}>O que é?</Title>
                             <Text>
@@ -184,12 +242,29 @@ const Pixelthon: React.FC = () => {
                     }
 
                     {
-                        false &&
+                        (data?.groups_already_been_defined && data?.participant?.group == null) &&
                         <View>
-                            <Title size={60} style={{ marginBottom: 0 }}>94 horas</Title>
+                            <Text>
+                                Sua inscrição ao Pixelthon foi confirmada com sucesso, no entanto você ainda não foi adicionado a nenhum grupo.
+                                Aguarde ser inserido em um grupo para conhecer seus colegas de equipe... Caso você não seja inserido em nenhum grupo até dia 12/07, entre em contato via e-mail.
+                            </Text>
+                            <Caption style={{ marginTop: 10 }}>pixelinit@ejpixel.com.br</Caption>
+                        </View>
+                    }
+
+                    {
+                        (data?.groups_already_been_defined && data?.participant?.group != null) &&
+                        <View>
+                            <Title size={60} style={{ marginBottom: 0 }}>{timeRemaining}</Title>
                             <Caption>Restando para a conclusão do Pixelthon.</Caption>
 
-                            <Title style={{ marginTop: 30 }}>Seu grupo</Title>
+                            <Title style={{ marginTop: 30 }}>Você faz parte do grupo {data?.participant.group}, conheça seus colegas de equipe.</Title>
+
+                            {
+                                data?.colleagues.map(colleague => (
+                                    <UserItem key={colleague.id} data={colleague} />
+                                ))
+                            }
                         </View>
                     }
                 </Container>
