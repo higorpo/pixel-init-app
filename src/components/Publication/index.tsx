@@ -1,21 +1,28 @@
-import React, { useMemo, useState } from 'react';
-import { View, Alert } from 'react-native';
-import { Container, Avatar, PostDetails, Author, CreatedAt, PostText, PostReactions, ReactionButton } from './styles';
-import { Publication as IPublication } from '~/store/ducks/publications/types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { formatDistance } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Caption } from '../Typography';
-import api from '~/services/api';
-import { AuthenticationState } from '~/store/ducks/authentication/types';
+import React, { useMemo, useState } from 'react';
+import { Alert, View, ViewProps } from 'react-native';
 import { useSelector } from 'react-redux';
+import api from '~/services/api';
 import { ApplicationState } from '~/store';
+import { AuthenticationState } from '~/store/ducks/authentication/types';
+import { Publication as IPublication } from '~/store/ducks/publications/types';
+import { Caption } from '../Typography';
+import { Author, Avatar, Container, CreatedAt, PostDetails, PostReactions, PostText, ReactionButton } from './styles';
 
-interface IPublicationProps {
-    data: IPublication
+interface IPublicationProps extends ViewProps {
+    data: IPublication,
+    hideCommentsButton?: boolean
 }
 
 const Publication: React.FC<IPublicationProps> = (props) => {
+    const navigation = useNavigation();
+
+    /**
+     * Store state
+     */
     const authentication: AuthenticationState = useSelector((state: ApplicationState) => state.authentication);
 
     /**
@@ -62,8 +69,12 @@ const Publication: React.FC<IPublicationProps> = (props) => {
             })
     }
 
+    function handleOpenPost() {
+        navigation.navigate("ViewPost", { publication: props.data });
+    }
+
     return (
-        <Container>
+        <Container onPress={handleOpenPost} {...props}>
             <PostDetails>
                 <Avatar />
                 <View>
@@ -82,9 +93,7 @@ const Publication: React.FC<IPublicationProps> = (props) => {
                 <ReactionButton onPress={isLiked ? handleUnlike : handleLike}>
                     <MaterialCommunityIcons name={isLiked ? "heart" : "heart-outline"} size={24} color={isLiked ? "#F45656" : "white"} />
                 </ReactionButton>
-                <ReactionButton>
-                    <MaterialCommunityIcons name="comment-outline" size={24} color="white" />
-                </ReactionButton>
+                {!props.hideCommentsButton && <MaterialCommunityIcons name="comment-outline" size={24} color="white" />}
                 <Caption style={{ marginLeft: "auto" }}>{likesCount} curtidas • {props.data.__meta__.comments_count} comentários</Caption>
             </PostReactions>
         </Container>

@@ -2,24 +2,22 @@ import styled from 'styled-components/native';
 
 const userProfile = require("assets/user-profile.png")
 
-export const Container = styled.TouchableOpacity.attrs({
-    activeOpacity: .6
-})`
-    background: #0D0D0E;
-    margin-bottom: 10px;
-    padding: 10px 20px;
+export const Container = styled.View`
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
 `;
 
 export const Avatar = styled.Image.attrs({
     source: userProfile
 })`
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 100px;
     margin-right: 10px;
 `;
 
-export const PostDetails = styled.View`
+export const CommentDetails = styled.View`
     flex-direction: row;
     align-items: center;
 `;
@@ -29,29 +27,16 @@ export const Author = styled.Text.attrs({
 })`
     color: ${props => props.theme.colors.text};
     font-family: "Roboto_700Bold";
-    font-size: 18px;
-    margin-bottom: -1px;
+    font-size: 16px;
 `;
 
 export const CreatedAt = styled.Text`
     color: ${props => props.theme.colors.grey3};
     font-family: "Roboto_400Regular";
+    margin-left: 5px;
 `;
 
-export const PostText = styled.Text`
+export const CommentText = styled.Text`
     color: ${props => props.theme.colors.text};
     font-family: "Roboto_400Regular";
-    margin-top: 10px;
-`;
-
-export const PostReactions = styled.View`
-    flex-direction: row;
-    align-items: center;
-    margin-top: 20px;
-`;
-
-export const ReactionButton = styled.TouchableOpacity.attrs({
-    activeOpacity: .7
-})`
-    margin-right: 20px;
 `;

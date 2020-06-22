@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import Notifications from './Notifications';
 import Publications from './Publications';
+import ViewPost from '~/components/Publication/pages/ViewPost';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -100,6 +101,10 @@ const Routes: React.FC = () => {
                             <StackNavigator.Screen
                                 name="Notifications"
                                 component={Notifications}
+                            />
+                            <StackNavigator.Screen
+                                name="ViewPost"
+                                component={ViewPost}
                             />
                         </>
                     )
