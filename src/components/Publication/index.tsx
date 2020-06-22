@@ -14,7 +14,8 @@ import { Author, Avatar, Container, CreatedAt, PostDetails, PostReactions, PostT
 
 interface IPublicationProps extends ViewProps {
     data: IPublication,
-    hideCommentsButton?: boolean
+    hideCommentsButton?: boolean,
+    hideDeletePostButton?: boolean
 }
 
 const Publication: React.FC<IPublicationProps> = (props) => {
@@ -121,11 +122,10 @@ const Publication: React.FC<IPublicationProps> = (props) => {
                 <View style={{ flex: 1 }}>
                     <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
                         <Author>
-                            {/* {props.data.author.first_name} {props.data.author.last_name} */}
-                            João Pedro dos Santos Alves da Cunha Souza
+                            {props.data.author.first_name} {props.data.author.last_name}
                         </Author>
                         {
-                            (authentication.user?.id == props.data?.author?.id || authentication.user?.is_admin == true) &&
+                            (!props.hideDeletePostButton && (authentication.user?.id == props.data?.author?.id || authentication.user?.is_admin == true)) &&
                             <TouchableOpacity activeOpacity={0.8} onPress={handleDeletePost}>
                                 <Text style={{ marginLeft: 20, color: "#F45656" }}>Excluir</Text>
                             </TouchableOpacity>

@@ -18,13 +18,16 @@ export const Avatar = styled.Image.attrs({
 `;
 
 export const CommentDetails = styled.View`
+    flex: 1;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
 `;
 
 export const Author = styled.Text.attrs({
     numberOfLines: 1
 })`
+    flex: 1;
     color: ${props => props.theme.colors.text};
     font-family: "Roboto_700Bold";
     font-size: 16px;

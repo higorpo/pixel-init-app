@@ -146,6 +146,7 @@ const ViewPost: React.FC = () => {
                         <Publication
                             data={publication}
                             hideCommentsButton={true}
+                            hideDeletePostButton={true}
                             style={{ marginTop: 30 }}
                         />
 
