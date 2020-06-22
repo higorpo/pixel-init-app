@@ -33,6 +33,7 @@ const ViewPost: React.FC = () => {
      * State
      */
     const [loading, setLoading] = useState<boolean>(true);
+    const [loadingMore, setLoadingMore] = useState<boolean>(true);
     const [pagination, setPagination] = useState<{
         total: number,
         perPage: number,
@@ -84,6 +85,8 @@ const ViewPost: React.FC = () => {
 
             // Verifica se  não tem todas as publicações aqui
             if (nextPage <= lastPage) {
+                setLoadingMore(true);
+
                 loadData(nextPage)
                     .then((response) => {
                         console.log("carregando mais...")
@@ -91,9 +94,9 @@ const ViewPost: React.FC = () => {
                         setPagination({ total, perPage, page, lastPage });
                         setComments(oldState => [...oldState, ...response.data.data]);
                     })
-                // .finally(() => {
-                //     setLoading(false);
-                // })
+                    .finally(() => {
+                        setLoadingMore(false);
+                    })
             }
         }
     }
@@ -125,24 +128,16 @@ const ViewPost: React.FC = () => {
     return (
         <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
-            <BackButtonNavigator style={{
-                padding: 20,
-                marginBottom: -40,
-                backgroundColor: theme.colors.background,
-                zIndex: 99999
-            }} />
             <FlatList
                 data={comments}
                 keyExtractor={item => String(item.id)}
                 renderItem={({ item }) => <Comment data={item} />}
-                style={{
-                    zIndex: -1
-                }}
                 contentContainerStyle={{
                     padding: 20
                 }}
                 ListHeaderComponent={() => (
                     <View>
+                        <BackButtonNavigator />
                         <Publication
                             data={publication}
                             hideCommentsButton={true}
@@ -157,6 +152,13 @@ const ViewPost: React.FC = () => {
                     if (loading) {
                         return <ActivityIndicator size={30} style={{ marginTop: 30 }} />
                     } else return <Caption style={{ marginTop: 30, paddingHorizontal: 30, textAlign: "center" }}>Está publicação não possuí comentários, seja o primeiro a comentar!</Caption>
+                }}
+                ListFooterComponent={() => {
+                    if (!loadingMore || loading) return <View style={{ marginBottom: 10 }} />;
+
+                    return (
+                        <ActivityIndicator style={{ marginVertical: 10 }} />
+                    )
                 }}
                 onEndReached={onEndReached}
                 onEndReachedThreshold={0.4}
