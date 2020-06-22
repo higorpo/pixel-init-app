@@ -3,7 +3,7 @@ import { AuthenticationState, AuthenticationTypes } from './types';
 
 const INITIAL_STATE: AuthenticationState = {
     token: null,
-    user_id: null
+    user: null
 };
 
 const reducer: Reducer<AuthenticationState> = (state = INITIAL_STATE, action) => {
@@ -11,7 +11,7 @@ const reducer: Reducer<AuthenticationState> = (state = INITIAL_STATE, action) =>
         case AuthenticationTypes.AUTHENTICATE_SET_TOKEN:
             return {
                 token: action.payload.token,
-                user_id: action.payload.user_id
+                user: action.payload.user
             }
         default:
             return state;

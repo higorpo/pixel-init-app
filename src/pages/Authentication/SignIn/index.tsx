@@ -63,7 +63,7 @@ const SignIn: React.FC = () => {
             const login = await User.loginAttempt(fieldMail, fieldPassword);
 
             if (login.data.token) {
-                dispatch(AuthenticationActions.setToken(login.data.token, login.data.user_id));
+                dispatch(AuthenticationActions.setToken(login.data.token, login.data.user));
             }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {

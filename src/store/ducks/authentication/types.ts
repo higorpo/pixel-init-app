@@ -18,10 +18,18 @@ export interface AuthencationError {
     message: string
 }
 
+export interface UserAuthenticationProp {
+    id: number,
+    is_admin: number,
+    first_name: string,
+    last_name: string,
+    avatar: string
+}
+
 /**
  * State type
  */
 export interface AuthenticationState {
     readonly token: string | null,
-    readonly user_id: number | null
+    readonly user: UserAuthenticationProp | null
 }
