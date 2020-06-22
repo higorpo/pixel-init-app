@@ -56,7 +56,7 @@ const Pixelthon: React.FC = () => {
      */
     const [loadingData, setLoadingData] = useState<boolean>(true);
     const [data, setData] = useState<IPixelthonProps | null>(null)
-    const [refreshing, setRefreshing] = useState<boolean>(true);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -212,92 +212,99 @@ const Pixelthon: React.FC = () => {
             }>
                 <Container>
                     {
-                        (!data?.groups_already_been_defined) &&
-                        <View>
-                            <Title style={{ marginBottom: 10 }}>O que é?</Title>
-                            <Text>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        loadingData ?
+                            <ActivityIndicator style={{ alignSelf: "center", marginTop: 30 }} size={40} />
+                            :
+                            <>
+                                {
+                                    (!data?.groups_already_been_defined) &&
+                                    <View>
+                                        <Title style={{ marginBottom: 10 }}>O que é?</Title>
+                                        <Text>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </Text>
 
-                            <Title style={{ marginBottom: 10, marginTop: 20 }}>Quando irá acontecer?</Title>
-                            <Text>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        <Title style={{ marginBottom: 10, marginTop: 20 }}>Quando irá acontecer?</Title>
+                                        <Text>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </Text>
 
-                            <Title style={{ marginBottom: 10, marginTop: 20 }}>Prêmio</Title>
-                            <Text>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        <Title style={{ marginBottom: 10, marginTop: 20 }}>Prêmio</Title>
+                                        <Text>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </Text>
 
-                            <Title style={{ marginBottom: 10, marginTop: 20 }}>Regulamento</Title>
-                            <Text>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        <Title style={{ marginBottom: 10, marginTop: 20 }}>Regulamento</Title>
+                                        <Text>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </Text>
 
-                            {
-                                data?.is_within_the_application_deadline ?
-                                    data?.participants >= 72 ?
-                                        <View style={{ marginTop: 20 }}>
-                                            <Text style={{ color: "#F45656" }}>
-                                                Poxa, que pena! O Pixelthon já atingiu o número máximo de inscritos e infelizmente não está aceitando novas inscrições!
+                                        {
+                                            data?.is_within_the_application_deadline ?
+                                                data?.participants >= 72 ?
+                                                    <View style={{ marginTop: 20 }}>
+                                                        <Text style={{ color: "#F45656" }}>
+                                                            Poxa, que pena! O Pixelthon já atingiu o número máximo de inscritos e infelizmente não está aceitando novas inscrições!
                                             </Text>
-                                        </View>
-                                        :
-                                        data?.is_participant ?
-                                            <View style={{ marginTop: 20 }}>
-                                                <Text style={{ color: "#1EE21B" }}>
-                                                    Sua inscrição para o Pixelthon está confirmada, aguarde para mais informações!
+                                                    </View>
+                                                    :
+                                                    data?.is_participant ?
+                                                        <View style={{ marginTop: 20 }}>
+                                                            <Text style={{ color: "#1EE21B" }}>
+                                                                Sua inscrição para o Pixelthon está confirmada, aguarde para mais informações!
                                                 </Text>
-                                            </View>
-                                            :
-                                            <View style={{ marginTop: 20 }}>
-                                                <Button
-                                                    label="quero participar"
-                                                    color="secondary"
-                                                    loading={loading}
-                                                    onPress={handleSubscribe}
-                                                />
-                                                <Caption style={{ fontSize: 10, marginTop: 10 }}>
-                                                    As inscrições estarão abertas a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
+                                                        </View>
+                                                        :
+                                                        <View style={{ marginTop: 20 }}>
+                                                            <Button
+                                                                label="quero participar"
+                                                                color="secondary"
+                                                                loading={loading}
+                                                                onPress={handleSubscribe}
+                                                            />
+                                                            <Caption style={{ fontSize: 10, marginTop: 10 }}>
+                                                                As inscrições estarão abertas a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
                                                 </Caption>
-                                            </View>
-                                    :
-                                    <View style={{ marginTop: 20 }}>
-                                        <Text style={{ color: "#F45656" }}>
-                                            Você está fora do prazo de inscrição para o Pixelthon! Volte aqui a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
+                                                        </View>
+                                                :
+                                                <View style={{ marginTop: 20 }}>
+                                                    <Text style={{ color: "#F45656" }}>
+                                                        Você está fora do prazo de inscrição para o Pixelthon! Volte aqui a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
                                         </Text>
+                                                </View>
+                                        }
                                     </View>
-                            }
-                        </View>
-                    }
+                                }
 
-                    {
-                        (data?.groups_already_been_defined && data?.participant?.group == null) &&
-                        <View>
-                            <Text>
-                                Sua inscrição ao Pixelthon foi confirmada com sucesso, no entanto você ainda não foi adicionado a nenhum grupo.
-                                Aguarde ser inserido em um grupo para conhecer seus colegas de equipe... Caso você não seja inserido em nenhum grupo até dia 12/07, entre em contato via e-mail.
+                                {
+                                    (data?.groups_already_been_defined && data?.participant?.group == null) &&
+                                    <View>
+                                        <Text>
+                                            Sua inscrição ao Pixelthon foi confirmada com sucesso, no entanto você ainda não foi adicionado a nenhum grupo.
+                                            Aguarde ser inserido em um grupo para conhecer seus colegas de equipe... Caso você não seja inserido em nenhum grupo até dia 12/07, entre em contato via e-mail.
                             </Text>
-                            <Caption style={{ marginTop: 10 }}>pixelinit@ejpixel.com.br</Caption>
-                        </View>
-                    }
+                                        <Caption style={{ marginTop: 10 }}>pixelinit@ejpixel.com.br</Caption>
+                                    </View>
+                                }
 
-                    {
-                        (data?.groups_already_been_defined && data?.participant?.group != null) &&
-                        <View>
-                            <Title size={60} style={{ marginBottom: 0 }}>{timeRemaining}</Title>
-                            <Caption>Restando para a conclusão do Pixelthon.</Caption>
+                                {
+                                    (data?.groups_already_been_defined && data?.participant?.group != null) &&
+                                    <View>
+                                        <Title size={60} style={{ marginBottom: 0 }}>{timeRemaining}</Title>
+                                        <Caption>Restando para a conclusão do Pixelthon.</Caption>
 
-                            <Title style={{ marginTop: 30 }}>Você faz parte do grupo {data?.participant.group}, conheça seus colegas de equipe.</Title>
+                                        <Title style={{ marginTop: 30 }}>Você faz parte do grupo {data?.participant.group}, conheça seus colegas de equipe.</Title>
 
-                            {
-                                data?.colleagues.map(colleague => (
-                                    <UserItem key={colleague.id} data={colleague} />
-                                ))
-                            }
+                                        {
+                                            data?.colleagues.map(colleague => (
+                                                <UserItem key={colleague.id} data={colleague} />
+                                            ))
+                                        }
 
-                            <Caption style={{ textAlign: "justify" }}>Para facilitar a comunicação, um grupo no WhatsApp será criado para este grupo pela equipe de produção do Pixelthon, aguarde!</Caption>
-                        </View>
+                                        <Caption style={{ textAlign: "justify" }}>Para facilitar a comunicação, um grupo no WhatsApp será criado para este grupo pela equipe de produção do Pixelthon, aguarde!</Caption>
+                                    </View>
+                                }
+                            </>
                     }
                 </Container>
             </ScrollabeContainer>
