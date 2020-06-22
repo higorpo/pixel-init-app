@@ -9,8 +9,10 @@ import { PublicationsState } from '~/store/ducks/publications/types';
 import { ApplicationState } from '~/store';
 import PublicationsActions from '~/store/ducks/publications/actions';
 import { Publication } from '~/components';
+import { useNavigation } from '@react-navigation/native';
 
 const Publications: React.FC = () => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
 
     /**
@@ -53,7 +55,7 @@ const Publications: React.FC = () => {
             <Header style={{ paddingTop: Platform.OS == "ios" ? Constants.statusBarHeight + 20 : 20, paddingBottom: 20 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                     <Title style={{ marginBottom: 0 }} size={30}>Publicações</Title>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={.8} onPress={() => navigation.navigate("CreatePost")}>
                         <MaterialCommunityIcons name="comment-plus" color="white" size={30} />
                     </TouchableOpacity>
                 </View>

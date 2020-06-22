@@ -17,6 +17,7 @@ import { ApplicationState } from '~/store';
 import Notifications from './Notifications';
 import Publications from './Publications';
 import ViewPost from '~/components/Publication/pages/ViewPost';
+import CreatePost from '~/pages/Publications/pages/CreatePost';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
@@ -105,6 +106,10 @@ const Routes: React.FC = () => {
                             <StackNavigator.Screen
                                 name="ViewPost"
                                 component={ViewPost}
+                            />
+                            <StackNavigator.Screen
+                                name="CreatePost"
+                                component={CreatePost}
                             />
                         </>
                     )
