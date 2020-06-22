@@ -3,13 +3,13 @@ import { useNavigation } from '@react-navigation/native';
 import { formatDistance } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import React, { useMemo, useState } from 'react';
-import { Alert, View, ViewProps } from 'react-native';
+import { Alert, View, ViewProps, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import api from '~/services/api';
 import { ApplicationState } from '~/store';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { Publication as IPublication } from '~/store/ducks/publications/types';
-import { Caption } from '../Typography';
+import { Caption, Text } from '../Typography';
 import { Author, Avatar, Container, CreatedAt, PostDetails, PostReactions, PostText, ReactionButton } from './styles';
 
 interface IPublicationProps extends ViewProps {
@@ -30,6 +30,8 @@ const Publication: React.FC<IPublicationProps> = (props) => {
      */
     const [isLiked, setIsLiked] = useState<boolean>(props.data.is_liked);
     const [likesCount, setLikesCount] = useState<number>(props.data.__meta__.likes_count);
+
+    const [postDeleted, setPostDeleted] = useState<boolean>(false);
 
     /**
      * Memo
@@ -61,7 +63,11 @@ const Publication: React.FC<IPublicationProps> = (props) => {
         setIsLiked(false);
         setLikesCount(oldLikes => --oldLikes);
 
-        api.delete(`/publications/${props.data.id}/likes`)
+        api.delete(`/publications/${props.data.id}/likes`, {
+            headers: {
+                Authorization: `Bearer ${authentication.token}`
+            }
+        })
             .catch(() => {
                 Alert.alert("Erro", "Não foi possível curtir esta publicação!")
                 setIsLiked(true);
@@ -73,14 +79,58 @@ const Publication: React.FC<IPublicationProps> = (props) => {
         navigation.navigate("ViewPost", { publication: props.data });
     }
 
+    function handleDeletePost() {
+        Alert.alert("Deletar publicação", "Tem certeza que deseja deletar está publicação?", [
+            {
+                text: "Não",
+                onPress: () => null,
+                style: "cancel"
+            },
+            {
+                text: "Sim",
+                onPress: () => {
+                    api.delete(`/publications/${props.data.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${authentication.token}`
+                        }
+                    })
+                        .then(() => {
+                            Alert.alert("", "Publicação deletada com sucesso!")
+                            setPostDeleted(true);
+                        })
+                        .catch((error) => {
+                            if (error.response.status == 403) {
+                                Alert.alert("", "Você não tem permissão para deletar está publicação!");
+                            } else {
+                                Alert.alert("", "Não foi possível deletar a publicação, tente novamente mais tarde!");
+                            }
+                        })
+                }
+            }
+        ])
+    }
+
+    if (postDeleted) {
+        return <View />
+    }
+
     return (
         <Container onPress={handleOpenPost} {...props}>
             <PostDetails>
                 <Avatar />
-                <View>
-                    <Author>
-                        {props.data.author.first_name} {props.data.author.last_name}
-                    </Author>
+                <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+                        <Author>
+                            {/* {props.data.author.first_name} {props.data.author.last_name} */}
+                            João Pedro dos Santos Alves da Cunha Souza
+                        </Author>
+                        {
+                            (authentication.user?.id == props.data?.author?.id || authentication.user?.is_admin == true) &&
+                            <TouchableOpacity activeOpacity={0.8} onPress={handleDeletePost}>
+                                <Text style={{ marginLeft: 20, color: "#F45656" }}>Excluir</Text>
+                            </TouchableOpacity>
+                        }
+                    </View>
                     <CreatedAt>
                         {formatedDate}
                     </CreatedAt>

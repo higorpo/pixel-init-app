@@ -27,6 +27,7 @@ export const PostDetails = styled.View`
 export const Author = styled.Text.attrs({
     numberOfLines: 1
 })`
+    flex: 1;
     color: ${props => props.theme.colors.text};
     font-family: "Roboto_700Bold";
     font-size: 18px;

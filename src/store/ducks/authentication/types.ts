@@ -20,7 +20,7 @@ export interface AuthencationError {
 
 export interface UserAuthenticationProp {
     id: number,
-    is_admin: number,
+    is_admin: boolean,
     first_name: string,
     last_name: string,
     avatar: string
