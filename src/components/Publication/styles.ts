@@ -19,7 +19,9 @@ export const Avatar = styled.Image.attrs({
     margin-right: 10px;
 `;
 
-export const PostDetails = styled.View`
+export const PostDetails = styled.TouchableOpacity.attrs({
+    activeOpacity: .8
+})`
     flex-direction: row;
     align-items: center;
 `;

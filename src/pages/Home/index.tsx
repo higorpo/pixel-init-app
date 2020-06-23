@@ -7,6 +7,9 @@ import { Title, Text, Caption } from '~/components/Typography';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
+import { AuthenticationState } from '~/store/ducks/authentication/types';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '~/store';
 
 export interface ISpeech {
     category: "academic" | "technician" | "market",
@@ -96,13 +99,18 @@ const Home: React.FC = () => {
     const theme = useTheme();
     const navigation = useNavigation();
 
+    /**
+     * Stored 
+     */
+    const authentication: AuthenticationState = useSelector((state: ApplicationState) => state.authentication);
+
     return (
         <View style={{ flex: 1 }}>
             <Header style={{ paddingTop: Platform.OS == "ios" ? Constants.statusBarHeight + 20 : 20, display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <LogoImage />
-                <TouchableOpacity activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity onPress={() => navigation.navigate("User", { id: authentication.user?.id })} activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
                     <UserName>
-                        Higor
+                        {authentication.user?.first_name}
                     </UserName>
                     <ProfileImage />
                 </TouchableOpacity>
@@ -112,7 +120,7 @@ const Home: React.FC = () => {
                 <Header>
                     <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Title size={32} style={{ flex: 1, marginRight: 30 }} numberOfLines={2}>
-                            Bem-vindo, Higor Oliveira
+                            Bem-vindo, {authentication.user?.first_name} {authentication.user?.last_name}
                         </Title>
 
                         <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Notifications")}>

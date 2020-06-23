@@ -80,6 +80,10 @@ const Publication: React.FC<IPublicationProps> = (props) => {
         navigation.navigate("ViewPost", { publication: props.data });
     }
 
+    function handleOpenProfile() {
+        navigation.navigate("User", { id: props.data.user_id });
+    }
+
     function handleDeletePost() {
         Alert.alert("Deletar publicação", "Tem certeza que deseja deletar está publicação?", [
             {
@@ -117,7 +121,7 @@ const Publication: React.FC<IPublicationProps> = (props) => {
 
     return (
         <Container onPress={handleOpenPost} {...props}>
-            <PostDetails>
+            <PostDetails onPress={handleOpenProfile}>
                 <Avatar />
                 <View style={{ flex: 1 }}>
                     <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
