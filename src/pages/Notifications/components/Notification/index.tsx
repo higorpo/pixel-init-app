@@ -8,6 +8,7 @@ import { ApplicationState } from '~/store';
 import { Title, Caption } from '~/components/Typography';
 import { isToday, isYesterday, differenceInDays, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import ConnectionRequest from '../ConnectionRequestNotification';
 
 interface INotificationProps {
     data: NotificationData,
@@ -67,7 +68,7 @@ const Notification: React.FC<INotificationProps> = React.memo((props) => {
                     props.data.type == "alert" ?
                         <TextNotification data={props.data} />
                         :
-                        <View />
+                        <ConnectionRequest data={props.data} />
                 }
             </NotificationContainer>
         </View>

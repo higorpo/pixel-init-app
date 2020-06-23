@@ -16,6 +16,12 @@ export interface Notification {
     type: "alert" | "request_connection",
     text: string;
     connection_request_user_id?: number | null;
+    connection_requested_by_user: {
+        id: number,
+        first_name: string,
+        last_name: string,
+        avatar: string | null
+    }
     created_at: Date,
     updated_at: Date,
 }

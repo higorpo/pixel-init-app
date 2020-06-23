@@ -25,9 +25,7 @@ const Notifications: React.FC = () => {
      * Effect
      */
     useEffect(() => {
-        if (notifications.data.length == 0) {
-            dispatch(NotificationsActions.request());
-        }
+        dispatch(NotificationsActions.request());
     }, [])
 
     /**
