@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StatusBar, Alert, ActivityIndicator } from 'react-native';
+import { View, StatusBar, Alert, ActivityIndicator, RefreshControl } from 'react-native';
 import { ScrollabeContainer, BackButtonNavigator } from '~/components';
 import { useTheme } from 'styled-components';
 import api from '~/services/api';
@@ -44,7 +44,7 @@ const User: React.FC = () => {
     /**
      * State
      */
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const [data, setData] = useState<IUser | null>(null);
 
@@ -73,6 +73,15 @@ const User: React.FC = () => {
                 Authorization: `Bearer ${authentication.token}`
             }
         })
+    }
+
+    function onRefresh() {
+        setRefreshing(true);
+        loadData()
+            .then((response) => {
+                setData(response.data);
+            })
+            .finally(() => setRefreshing(false));
     }
 
     /**
@@ -132,7 +141,14 @@ const User: React.FC = () => {
                         <ActivityIndicator size={40} />
                     </View>
                     :
-                    <ScrollabeContainer style={{ padding: 20, paddingTop: 0 }}>
+                    <ScrollabeContainer
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+                        style={{ padding: 20, paddingTop: 0 }}>
                         <UserDetails>
                             <Avatar />
                             <Title size={30} style={{ flex: 1, marginBottom: 0 }}>
