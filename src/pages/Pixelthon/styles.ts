@@ -2,7 +2,9 @@ import styled from 'styled-components/native';
 
 const userProfile = require("assets/user-profile.png")
 
-export const UserContainer = styled.View`
+export const UserContainer = styled.TouchableOpacity.attrs({
+    activeOpacity: .8
+})`
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;

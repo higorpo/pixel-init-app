@@ -35,8 +35,14 @@ interface IUserItemProps {
 }
 
 const UserItem: React.FC<IUserItemProps> = React.memo((props) => {
+    const navigation = useNavigation();
+
+    function handleOpenProfile() {
+        navigation.navigate("User", { id: props.data.id });
+    }
+
     return (
-        <UserContainer>
+        <UserContainer onPress={handleOpenProfile}>
             <Avatar />
             <Text>{props.data.first_name} {props.data.last_name}</Text>
         </UserContainer>
@@ -191,6 +197,7 @@ const Pixelthon: React.FC = () => {
         ])
     }
 
+
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -222,22 +229,22 @@ const Pixelthon: React.FC = () => {
                                         <Title style={{ marginBottom: 10 }}>O que é?</Title>
                                         <Text>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </Text>
+                                        </Text>
 
                                         <Title style={{ marginBottom: 10, marginTop: 20 }}>Quando irá acontecer?</Title>
                                         <Text>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </Text>
+                                        </Text>
 
                                         <Title style={{ marginBottom: 10, marginTop: 20 }}>Prêmio</Title>
                                         <Text>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </Text>
+                                        </Text>
 
                                         <Title style={{ marginBottom: 10, marginTop: 20 }}>Regulamento</Title>
                                         <Text>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </Text>
+                                        </Text>
 
                                         {
                                             data?.is_within_the_application_deadline ?
@@ -282,7 +289,7 @@ const Pixelthon: React.FC = () => {
                                         <Text>
                                             Sua inscrição ao Pixelthon foi confirmada com sucesso, no entanto você ainda não foi adicionado a nenhum grupo.
                                             Aguarde ser inserido em um grupo para conhecer seus colegas de equipe... Caso você não seja inserido em nenhum grupo até dia 12/07, entre em contato via e-mail.
-                            </Text>
+                                        </Text>
                                         <Caption style={{ marginTop: 10 }}>pixelinit@ejpixel.com.br</Caption>
                                     </View>
                                 }
