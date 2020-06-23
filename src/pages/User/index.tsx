@@ -11,7 +11,7 @@ import { UserDetails, Avatar, ActionButton } from './styles';
 import { Text, Title, Caption } from '~/components/Typography';
 import { Linking } from 'expo';
 
-interface IUser {
+export interface IUser {
     id: number,
     email: string,
     first_name: string,
