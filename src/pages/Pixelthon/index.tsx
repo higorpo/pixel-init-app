@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import { UserContainer, Avatar } from './styles';
 
+const userProfile = require("assets/user-profile.png")
+
 interface IColleagueProp {
     id: number,
     first_name: string,
@@ -43,7 +45,7 @@ const UserItem: React.FC<IUserItemProps> = React.memo((props) => {
 
     return (
         <UserContainer onPress={handleOpenProfile}>
-            <Avatar />
+            <Avatar source={props.data.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.avatar}` } : userProfile} />
             <Text>{props.data.first_name} {props.data.last_name}</Text>
         </UserContainer>
     )

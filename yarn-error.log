@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add date-fns
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add expo-image-picker@~8.1.0
 
 PATH: 
   C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Ruby23\bin;C:\Users\higor\AppData\Local\Programs\Python\Python36;C:\Users\higor\AppData\Local\Programs\Python\Python36\Lib;C:\Users\higor\AppData\Local\Programs\Python\Python36\DLLs;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\PuTTY\;C:\Program Files (x86)\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Users\higor\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\higor\AppData\Local\Programs\Python\Python37-32\;C:\Users\higor\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\higor\AppData\Local\Programs\Python\Python36\;C:\Users\higor\AppData\Local\Microsoft\WindowsApps;C:\Users\higor\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Android\android-sdk-windows-1.6_r1\tools;C:\Users\higor\AppData\Local\Yarn\bin;C:\Program Files\Android\Sdk\platform-tools;C:\Program Files\Android\Sdk\tools;C:\Users\higor\AppData\Roaming\npm;
@@ -34,6 +34,7 @@ npm manifest:
       "@react-navigation/stack": "^5.5.1",
       "adonis": "^0.9.0",
       "axios": "^0.19.2",
+      "date-fns": "^2.14.0",
       "expo": "~37.0.3",
       "expo-calendar": "~8.1.0",
       "expo-constants": "~9.0.0",
@@ -2413,6 +2414,11 @@ Lockfile:
     version "2.6.10"
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
     integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
+  
+  date-fns@^2.14.0:
+    version "2.14.0"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.14.0.tgz#359a87a265bb34ef2e38f93ecf63ac453f9bc7ba"
+    integrity sha512-1zD+68jhFgDIM0rF05rcwYO8cExdNqxjq4xP1QKM60Q45mnO6zaMWB4tOzrIr4M4GSLntsKeE4c9Bdl2jhL/yw==
   
   dayjs@^1.8.15:
     version "1.8.28"

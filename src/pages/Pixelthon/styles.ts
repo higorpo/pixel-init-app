@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 
-const userProfile = require("assets/user-profile.png")
 
 export const UserContainer = styled.TouchableOpacity.attrs({
     activeOpacity: .8
@@ -10,9 +9,7 @@ export const UserContainer = styled.TouchableOpacity.attrs({
     margin-bottom: 10px;
 `;
 
-export const Avatar = styled.Image.attrs({
-    source: userProfile
-})`
+export const Avatar = styled.Image`
     width: 40px;
     height: 40px;
     border-radius: 100px;

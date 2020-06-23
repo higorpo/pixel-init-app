@@ -11,6 +11,8 @@ import { UserDetails, Avatar, ActionButton } from './styles';
 import { Text, Title, Caption } from '~/components/Typography';
 import { Linking } from 'expo';
 
+const userProfile = require("assets/user-profile.png")
+
 export interface IUser {
     id: number,
     email: string,
@@ -150,7 +152,7 @@ const User: React.FC = () => {
                         }
                         contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
                         <UserDetails>
-                            <Avatar />
+                            <Avatar source={data?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${data?.avatar}` } : userProfile} />
                             <Title size={30} style={{ flex: 1, marginBottom: 0 }}>
                                 {data?.first_name} {data?.last_name}
                             </Title>

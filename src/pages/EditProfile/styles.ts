@@ -1,10 +1,6 @@
 import styled from 'styled-components/native';
 
-const userProfile = require("assets/user-profile.png")
-
-export const Avatar = styled.Image.attrs({
-    source: userProfile
-})`
+export const Avatar = styled.Image`
     width: 120px;
     height: 120px;
     border-radius: 100px;

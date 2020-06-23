@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import { useNavigation } from '@react-navigation/native';
 
+const userProfile = require("assets/user-profile.png")
+
 interface ConnectionRequestProps {
     data: Notification
 }
@@ -65,7 +67,7 @@ const ConnectionRequest: React.FC<ConnectionRequestProps> = (props) => {
 
     return (
         <TouchableOpacity activeOpacity={.8} onPress={handleOpenUser} style={{ flexDirection: "row" }}>
-            <Avatar />
+            <Avatar source={props.data.connection_requested_by_user.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.connection_requested_by_user.avatar}` } : userProfile} />
             <View style={{ flex: 1 }}>
                 <Text>{props.data?.connection_requested_by_user.first_name} {props.data?.connection_requested_by_user.last_name} pediu para conectar-se com você! Aceite para aumentar seu networking no Pixel Init!</Text>
                 {

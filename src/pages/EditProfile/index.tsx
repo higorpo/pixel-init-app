@@ -5,15 +5,21 @@ import { useTheme } from 'styled-components';
 import { Avatar, ActionButton } from './styles';
 import { Text, Caption } from '~/components/Typography';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ApplicationState } from '~/store';
 import api from '~/services/api';
 import { useNavigation } from '@react-navigation/native';
 import { IUser } from '~/pages/User';
+import * as ImagePicker from 'expo-image-picker';
+import AuthenticationActions from '~/store/ducks/authentication/actions';
+
+const userProfile = require("assets/user-profile.png")
+
 
 const EditProfile: React.FC = () => {
     const theme = useTheme();
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
 
     /**
@@ -63,6 +69,52 @@ const EditProfile: React.FC = () => {
         })
     }
 
+    function openImageLibrary() {
+        ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            allowsMultipleSelection: false,
+            aspect: [1, 1],
+            quality: 1,
+            base64: true,
+        }).then((pickerResult: any) => {
+            if (pickerResult.height < 400 || pickerResult.width < 400) {
+                Alert.alert("Imagem muito pequena", "Imagem é muito pequena! Mínimo: 400px de largura e altura");
+                return;
+            }
+
+            if (!pickerResult.cancelled) {
+                delete pickerResult.cancelled;
+
+                const formData = new FormData();
+                formData.append('profile_pic', {
+                    // @ts-ignore
+                    name: `${Date.now()}`,
+                    uri: pickerResult.uri,
+                    type: "image/jpg"
+                });
+                api.post(`/uploads`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: `Bearer ${authentication.token}`
+                    }
+                })
+                    .then((response) => {
+                        console.log(response);
+                        // @ts-ignore
+                        setData(oldState => {
+                            return { ...oldState, avatar: response.data.uri };
+                        })
+                        dispatch(AuthenticationActions.setProfilePic(response.data.uri))
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        console.log(error.response);
+                        Alert.alert("", "Não foi possível fazer o upload desta foto, tente novamente mais tarde!");
+                    })
+            }
+        })
+    }
+
     /**
      * Handles
      */
@@ -98,6 +150,57 @@ const EditProfile: React.FC = () => {
         }
     }
 
+    async function handleAddProfilePicture() {
+        const permission = await ImagePicker.getCameraRollPermissionsAsync()
+
+        if (permission.granted) {
+            openImageLibrary();
+        } else {
+            // Não tem a permissão necessária
+            const permission = await ImagePicker.requestCameraRollPermissionsAsync();
+            if (permission.granted) {
+                openImageLibrary();
+            } else {
+                Alert.alert("Permissões", "Precisamos da permissão para abrir sua galeria para poder prosseguir!", [
+                    {
+                        text: "Ok",
+                        onPress: () => handleAddProfilePicture()
+                    }
+                ])
+            }
+        }
+    }
+
+    function handleRemoveProfilePicture() {
+        Alert.alert("", "Deseja realmente remover sua foto de perfil?", [
+            {
+                text: "Não",
+                onPress: () => null,
+                style: "cancel"
+            },
+            {
+                text: "Sim",
+                onPress: () => {
+                    api.delete(`/uploads`, {
+                        headers: {
+                            Authorization: `Bearer ${authentication.token}`
+                        }
+                    })
+                        .then(() => {
+                            // @ts-ignore
+                            setData(oldState => {
+                                return { ...oldState, avatar: null };
+                            })
+                        })
+                        .catch((error) => {
+                            console.log(error.response);
+                            Alert.alert("", "Não foi possível remover a foto de perfil!");
+                        })
+                },
+            }
+        ])
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={{ padding: 20, flexDirection: "row", justifyContent: "space-between", backgroundColor: theme.colors.background }}>
@@ -118,19 +221,19 @@ const EditProfile: React.FC = () => {
                     </View>
                     :
                     <ScrollabeContainer contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
-                        <Avatar />
+                        <Avatar source={data?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${data?.avatar}` } : userProfile} />
                         <View style={{ flexDirection: "row" }}>
                             {
-                                true ?
-                                    <ActionButton>
+                                !data?.avatar ?
+                                    <ActionButton onPress={handleAddProfilePicture}>
                                         <Text>Adicionar foto de perfil</Text>
                                     </ActionButton>
                                     :
                                     <>
-                                        <ActionButton style={{ marginRight: 5 }}>
+                                        <ActionButton onPress={handleAddProfilePicture} style={{ marginRight: 5 }}>
                                             <Text>Alterar foto</Text>
                                         </ActionButton>
-                                        <ActionButton style={{ marginLeft: 5, backgroundColor: '#D44638' }}>
+                                        <ActionButton onPress={handleRemoveProfilePicture} style={{ marginLeft: 5, backgroundColor: '#D44638' }}>
                                             <Text>Remover foto</Text>
                                         </ActionButton>
                                     </>

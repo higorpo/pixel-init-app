@@ -12,6 +12,8 @@ import { Publication as IPublication } from '~/store/ducks/publications/types';
 import { Caption, Text } from '../Typography';
 import { Author, Avatar, Container, CreatedAt, PostDetails, PostReactions, PostText, ReactionButton } from './styles';
 
+const userProfile = require("assets/user-profile.png")
+
 interface IPublicationProps extends ViewProps {
     data: IPublication,
     hideCommentsButton?: boolean,
@@ -122,7 +124,7 @@ const Publication: React.FC<IPublicationProps> = (props) => {
     return (
         <Container onPress={handleOpenPost} {...props}>
             <PostDetails onPress={handleOpenProfile}>
-                <Avatar />
+                <Avatar source={props.data.author.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.author.avatar}` } : userProfile} />
                 <View style={{ flex: 1 }}>
                     <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
                         <Author>

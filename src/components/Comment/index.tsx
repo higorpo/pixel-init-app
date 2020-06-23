@@ -9,6 +9,7 @@ import { ApplicationState } from '~/store';
 import { Text } from '../Typography';
 import api from '~/services/api';
 
+const userProfile = require("assets/user-profile.png")
 export interface Comment {
     id: number,
     user_id: number,
@@ -86,7 +87,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
 
     return (
         <Container>
-            <Avatar />
+            <Avatar source={props.data.author.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.author.avatar}` } : userProfile} />
             <View style={{ flex: 1 }}>
                 <CommentDetails>
                     <Author>

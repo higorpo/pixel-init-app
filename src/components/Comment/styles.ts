@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 
-const userProfile = require("assets/user-profile.png")
 
 export const Container = styled.View`
     flex-direction: row;
@@ -8,9 +7,7 @@ export const Container = styled.View`
     margin-top: 10px;
 `;
 
-export const Avatar = styled.Image.attrs({
-    source: userProfile
-})`
+export const Avatar = styled.Image`
     width: 30px;
     height: 30px;
     border-radius: 100px;
