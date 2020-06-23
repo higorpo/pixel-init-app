@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { BackButtonNavigator, ScrollabeContainer, TextInput } from '~/components';
 import { useTheme } from 'styled-components';
 import { Avatar, ActionButton } from './styles';
-import { Text } from '~/components/Typography';
+import { Text, Caption } from '~/components/Typography';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
@@ -137,8 +137,8 @@ const EditProfile: React.FC = () => {
                             }
                         </View>
 
+                        <Caption style={{ marginTop: 30 }}>Conte um pouquinho sobre você</Caption>
                         <TextInput
-                            placeholder="Conte um pouquinho sobre você"
                             multiline
                             numberOfLines={8}
                             textAlignVertical="top"
@@ -147,8 +147,8 @@ const EditProfile: React.FC = () => {
                             onChangeText={text => setAboutInput(text)}
                             errors={aboutInputErrors}
                         />
+                        <Caption style={{ marginTop: 10 }}>Em que você trabalha?</Caption>
                         <TextInput
-                            placeholder="Em que você trabalha?"
                             multiline
                             numberOfLines={8}
                             textAlignVertical="top"
