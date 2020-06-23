@@ -11,6 +11,7 @@ import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 
+const userProfile = require("assets/user-profile.png")
 export interface ISpeech {
     category: "academic" | "technician" | "market",
     speech_day: Date,
@@ -112,7 +113,7 @@ const Home: React.FC = () => {
                     <UserName>
                         {authentication.user?.first_name}
                     </UserName>
-                    <ProfileImage />
+                    <ProfileImage source={authentication?.user?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${authentication?.user?.avatar}` } : userProfile} />
                 </TouchableOpacity>
             </Header>
             <ScrollabeContainer>

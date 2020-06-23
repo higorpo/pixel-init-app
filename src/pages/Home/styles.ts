@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 const logo = require("assets/logo.png")
-const userProfile = require("assets/user-profile.png")
 
 export const Header = styled.View`
     padding: 20px 20px;
@@ -15,9 +14,7 @@ export const LogoImage = styled.Image.attrs({
   
 `;
 
-export const ProfileImage = styled.Image.attrs({
-    source: userProfile,
-})`
+export const ProfileImage = styled.Image`
     width: 40px;
     height: 40px;
     border-radius: 100px;

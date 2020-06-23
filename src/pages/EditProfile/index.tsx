@@ -191,6 +191,7 @@ const EditProfile: React.FC = () => {
                             setData(oldState => {
                                 return { ...oldState, avatar: null };
                             })
+                            dispatch(AuthenticationActions.setProfilePic(null))
                         })
                         .catch((error) => {
                             console.log(error.response);
