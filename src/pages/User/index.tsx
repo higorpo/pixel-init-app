@@ -148,7 +148,7 @@ const User: React.FC = () => {
                                 onRefresh={onRefresh}
                             />
                         }
-                        style={{ padding: 20, paddingTop: 0 }}>
+                        contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
                         <UserDetails>
                             <Avatar />
                             <Title size={30} style={{ flex: 1, marginBottom: 0 }}>
@@ -157,7 +157,7 @@ const User: React.FC = () => {
                         </UserDetails>
                         {
                             authentication.user?.id == data?.id ?
-                                <ActionButton style={{ backgroundColor: theme.colors.grey3 }}>
+                                <ActionButton onPress={() => navigation.navigate("EditProfile")} style={{ backgroundColor: theme.colors.grey3 }}>
                                     <Text>Editar perfil</Text>
                                 </ActionButton>
                                 :
