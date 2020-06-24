@@ -1,5 +1,5 @@
 <div align="center">   
-    <img src=".github/logo.png" width="200px"/>
+    <img src=".github/logo.png" width="100px"/>
     <p><b>Este repositório contém o aplicativo usado no evento Pixel Init, edição 2020.</b></p>
 </div>
 
