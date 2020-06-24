@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Welcome from './Authentication/Welcome';
-import SignIn from './Authentication/SignIn';
 import Home from './Home';
 import Speech from './Speech';
 import Pixelthon from './Pixelthon';
@@ -18,6 +17,7 @@ import ViewPost from '~/components/Publication/pages/ViewPost';
 import CreatePost from '~/pages/Publications/pages/CreatePost';
 import User from './User';
 import EditProfile from './EditProfile';
+import SignIn from './Authentication/SignIn';
 
 const BottomTabNavigator = createBottomTabNavigator();
 const StackNavigator = createStackNavigator();
