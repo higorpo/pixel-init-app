@@ -10,8 +10,7 @@ export enum AuthenticationTypes {
  * Data types
  */
 export interface Authentication {
-    mail: string,
-    password: string
+    mail: string
 }
 
 export interface AuthencationError {

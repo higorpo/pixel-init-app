@@ -1,19 +1,18 @@
 import api from "../api"
 
-function createAccount(email: string, password: string, ticket_number: string) {
+function createAccount(email: string, ticket_number: string) {
     return api.post(`/users`, {
         mail: email,
-        password,
         ticket_number
     })
 }
 
 
 
-function loginAttempt(email: string, password: string) {
+function loginAttempt(email: string, ticket_number: string) {
     return api.post(`/sessions`, {
         email,
-        password,
+        ticket_number
     })
 }
 

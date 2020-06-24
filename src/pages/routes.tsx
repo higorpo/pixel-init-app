@@ -3,11 +3,9 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Welcome from './Authentication/Welcome';
 import SignIn from './Authentication/SignIn';
-import SignUp from './Authentication/SignUp';
 import Home from './Home';
 import Speech from './Speech';
 import Pixelthon from './Pixelthon';
-import RecoverPass from './Authentication/SignIn/pages/RecoverPass';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -137,21 +135,7 @@ const Routes: React.FC = () => {
                                 name="SignIn"
                                 component={SignIn}
                                 options={{
-                                    headerTitle: "Entrar"
-                                }}
-                            />
-                            <StackNavigator.Screen
-                                name="RecoverPass"
-                                component={RecoverPass}
-                                options={{
-                                    headerTitle: "Recuperar senha"
-                                }}
-                            />
-                            <StackNavigator.Screen
-                                name="SignUp"
-                                component={SignUp}
-                                options={{
-                                    headerTitle: "Registrar-se"
+                                    headerTitle: "Entrar na sua conta"
                                 }}
                             />
                         </>

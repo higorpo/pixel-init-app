@@ -1,13 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { View, Keyboard } from 'react-native';
-import * as Yup from 'yup';
+import { View, Keyboard, Alert } from 'react-native';
+import { Container } from '../Welcome/styles';
+import { BackButtonNavigator, TextInput, Button } from '~/components';
 import { ImageLogo } from './styles';
-import { BackButtonNavigator, Button, TextInput, Container } from '~/components';
-import { Title, Caption } from '~/components/Typography';
+import { Caption, Title } from '~/components/Typography';
+import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 import User from '~/services/User';
-import AuthenticationActions from '~/store/ducks/authentication/actions';
+import api from '~/services/api';
+import Axios from 'axios';
 import { useDispatch } from 'react-redux';
+import AuthenticationActions from '~/store/ducks/authentication/actions';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
@@ -20,10 +23,10 @@ const SignIn: React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br");
+    const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br"); //  higor.oliveira@ejpixel.com.br
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
-    const [fieldPassword, setFieldPassword] = useState<string>("abc123");
-    const [fieldPasswordErrors, setFieldPasswordErrors] = useState<string[]>([]);
+    const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("RGJAURC5GQ"); //RGJAURC5GQ
+    const [fieldTicketNumberErrors, setFieldTicketNumberErrors] = useState<string[]>([]);
 
     /**
      * Effects
@@ -45,26 +48,34 @@ const SignIn: React.FC = () => {
         setLoading(true);
 
         setFieldMailErrors([]);
-        setFieldPasswordErrors([]);
+        setFieldTicketNumberErrors([]);
 
         const schema = Yup.object().shape({
             mail: Yup.string().email("você precisa digitar um e-mail válido").required("e-mail é um campo obrigatório"),
-            password: Yup.string().required("senha é um campo obrigatório").min(5, "sua senha deve ter no mínimo 5 caracteres").max(15, "sua senha deve ter no máximo 15 caracteres")
+            ticket_number: Yup.string().required("você precisa digitar o número do ingresso fornecido no Sympla").min(10, "o número do ingresso deve ter no mínimo 10 caracteres").max(12, "o número do ingresso deve ter no máximo 12 caracteres"),
         });
 
         try {
             await schema.validate({
                 mail: fieldMail,
-                password: fieldPassword
+                ticket_number: fieldTicketNumber,
             }, {
                 abortEarly: false
             });
 
-            const login = await User.loginAttempt(fieldMail, fieldPassword);
+            // Remove os traços do número do ingresso se houver
+            const serializedTicketNumber = fieldTicketNumber.replace(/-/g, "");
+
+            // Faz a chamada a API
+            const newUser = await User.createAccount(fieldMail, serializedTicketNumber)
+
+            // Criou a conta, faz a autenticação
+            const login = await User.loginAttempt(fieldMail, serializedTicketNumber);
 
             if (login.data.token) {
                 dispatch(AuthenticationActions.setToken(login.data.token, login.data.user));
             }
+
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 error.inner.forEach(fieldError => {
@@ -72,11 +83,19 @@ const SignIn: React.FC = () => {
                         case "mail":
                             setFieldMailErrors(oldState => [...oldState, fieldError.message])
                             break;
-                        case "password":
-                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                        case "ticket_number":
+                            setFieldTicketNumberErrors(oldState => [...oldState, fieldError.message])
                             break;
                     }
                 })
+            }
+
+            console.log(error.response);
+
+            if (error?.response?.data?.error == "TICKET_NUMBER_NOT_FOUND") {
+                setFieldTicketNumberErrors(["O número do ingresso informado não corresponde a nenhum ingresso cadastrado na plataforma do Sympla. Verifique seus dados e tente novamente!"]);
+            } else if (error?.response?.data?.error == "INCORRECT_EMAIL") {
+                setFieldMailErrors(["E-mail usado na compra do ingresso no Sympla não corresponde ao e-mail digitado no aplicativo do Pixel Init, verifique seus dados e tente novamente!"]);
             } else if (error?.response?.data instanceof Array && error?.response?.status == 400 || error?.response?.status == 401) {
                 const errors = error?.response?.data;
                 errors.forEach((fieldError: any) => {
@@ -84,8 +103,8 @@ const SignIn: React.FC = () => {
                         case "mail":
                             setFieldMailErrors(oldState => [...oldState, fieldError.message])
                             break;
-                        case "password":
-                            setFieldPasswordErrors(oldState => [...oldState, fieldError.message])
+                        case "ticket_number":
+                            setFieldTicketNumberErrors(oldState => [...oldState, fieldError.message])
                             break;
                     }
                 })
@@ -100,14 +119,18 @@ const SignIn: React.FC = () => {
             <View style={{ marginVertical: 20 }}>
                 <BackButtonNavigator />
             </View>
-
             <View style={{ flex: 1 }}>
                 {isLogoVisible && <ImageLogo />}
 
                 <View style={{ marginTop: "auto", marginBottom: "auto" }}>
-                    <Title>Entre em sua conta</Title>
+                    <Title style={{ marginBottom: 5 }}>Entrar em sua conta</Title>
+                    <Caption style={{ marginBottom: 20 }}>
+                        Utilize suas informações de ingresso do
+                        Sympla para entrar no aplicativo do
+                        Pixel Init!
+                    </Caption>
                     <TextInput
-                        placeholder="Digite seu e-mail"
+                        placeholder="E-mail usado no Sympla"
                         value={fieldMail}
                         onChangeText={text => setFieldMail(text)}
                         containerStyle={{ marginBottom: 10 }}
@@ -119,30 +142,21 @@ const SignIn: React.FC = () => {
                         autoCompleteType="email"
                     />
                     <TextInput
-                        placeholder="Digite sua senha"
-                        value={fieldPassword}
-                        onChangeText={text => setFieldPassword(text)}
-                        errors={fieldPasswordErrors}
-                        onFieldErrorsChange={() => setFieldPasswordErrors([])}
-                        autoCapitalize="none"
+                        placeholder="Número do ingresso do Sympla"
+                        value={fieldTicketNumber}
+                        onChangeText={text => setFieldTicketNumber(text)}
+                        containerStyle={{ marginBottom: 10 }}
+                        errors={fieldTicketNumberErrors}
+                        onFieldErrorsChange={() => setFieldTicketNumberErrors([])}
+                        autoCapitalize="characters"
                         autoFocus={false}
                         autoCorrect={false}
-                        autoCompleteType="password"
-                        secureTextEntry={true}
+                        autoCompleteType="off"
                     />
-                    <Caption
-                        style={{
-                            marginLeft: "auto",
-                            marginTop: 5
-                        }}
-                        onPress={() => navigation.navigate("RecoverPass")}
-                    >
-                        Esqueceu sua senha?
-                    </Caption>
                 </View>
 
                 <Button
-                    label="entrar"
+                    label="vamos lá"
                     color="secondary"
                     loading={loading}
                     style={{

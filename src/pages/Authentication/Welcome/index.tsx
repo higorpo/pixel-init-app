@@ -24,14 +24,6 @@ const Welcome: React.FC = () => {
                 label="entrar"
                 onPress={() => navigation.navigate("SignIn")}
             />
-            <Button
-                label="registrar-se"
-                color="secondary"
-                style={{
-                    marginTop: 10
-                }}
-                onPress={() => navigation.navigate("SignUp")}
-            />
         </Container>
     );
 }
