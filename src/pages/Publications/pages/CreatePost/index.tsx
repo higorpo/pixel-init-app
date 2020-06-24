@@ -89,7 +89,7 @@ const CreatePost: React.FC = () => {
                 value={textInput}
                 onChangeText={text => setTextInput(text)}
             />
-            <Caption style={{ marginLeft: "auto", marginTop: 10 }}>255 caracteres</Caption>
+            <Caption style={{ marginLeft: "auto", marginTop: 10 }}>{255 - textInput.length} caracteres</Caption>
         </Container>
     );
 }

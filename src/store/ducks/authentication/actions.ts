@@ -5,10 +5,13 @@ const setToken = (token: string, user: UserAuthenticationProp) => action(Authent
 
 const setProfilePic = (profile_pic: string | null) => action(AuthenticationTypes.UPDATE_PROFILE_PIC, { profile_pic });
 
+const setUser = (user: UserAuthenticationProp) => action(AuthenticationTypes.SET_USAR_DATA, { user });
+
 
 const AuthenticationActions = {
     setToken,
-    setProfilePic
+    setProfilePic,
+    setUser
 }
 
 export default AuthenticationActions;

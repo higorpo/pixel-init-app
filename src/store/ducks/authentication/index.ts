@@ -19,6 +19,8 @@ const reducer: Reducer<AuthenticationState> = (state = INITIAL_STATE, action) =>
                 avatar: action.payload.profile_pic
             };
             return { ...state, user };
+        case AuthenticationTypes.SET_USAR_DATA:
+            return { ...state, user: action.payload.user };
         default:
             return state;
     }

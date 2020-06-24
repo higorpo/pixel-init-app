@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, View, TouchableOpacity, Platform } from 'react-native';
 import { ScrollabeContainer, Container } from '~/components';
 import { Header, LogoImage, ProfileImage, UserName, SpeechContainer, SpeechTime, SpeechName, SpeechPresenter } from './styles';
@@ -8,8 +8,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
-import { useSelector } from 'react-redux';
+import AuthenticationActions from '~/store/ducks/authentication/actions';
+import { useSelector, useDispatch } from 'react-redux';
 import { ApplicationState } from '~/store';
+import api from '~/services/api';
 
 const userProfile = require("assets/user-profile.png")
 export interface ISpeech {
@@ -99,14 +101,32 @@ const speeches: ISpeech[] = [
 const Home: React.FC = () => {
     const theme = useTheme();
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     /**
      * Stored 
      */
     const authentication: AuthenticationState = useSelector((state: ApplicationState) => state.authentication);
 
+    /**
+     * Effect
+     */
+    useEffect(() => {
+        api.get(`/users/${authentication?.user?.id}`, {
+            headers: {
+                Authorization: `Bearer ${authentication.token}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data);
+                dispatch(AuthenticationActions.setUser(response.data));
+            })
+    }, [])
+
     return (
         <View style={{ flex: 1 }}>
+            <StatusBar barStyle="light-content" backgroundColor={theme.colors.primary} />
+
             <Header style={{ paddingTop: Platform.OS == "ios" ? Constants.statusBarHeight + 20 : 20, display: "flex", paddingBottom: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <LogoImage />
                 <TouchableOpacity onPress={() => navigation.navigate("User", { id: authentication.user?.id })} activeOpacity={.95} style={{ flexDirection: "row", alignItems: "center" }}>
@@ -117,7 +137,6 @@ const Home: React.FC = () => {
                 </TouchableOpacity>
             </Header>
             <ScrollabeContainer>
-                <StatusBar barStyle="light-content" backgroundColor={theme.colors.primary} />
                 <Header>
                     <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Title size={32} style={{ flex: 1, marginRight: 30 }} numberOfLines={2}>

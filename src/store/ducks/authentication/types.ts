@@ -4,6 +4,7 @@
 export enum AuthenticationTypes {
     'AUTHENTICATE_SET_TOKEN' = '@authentication/AUTHENTICATE_SET_TOKEN',
     'UPDATE_PROFILE_PIC' = '@authentication/UPDATE_PROFILE_PIC',
+    'SET_USAR_DATA' = '@authentication/SET_USAR_DATA'
 };
 
 /**
