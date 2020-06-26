@@ -9,6 +9,7 @@ import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ApplicationState } from '~/store';
 import PublicationsActions from '~/store/ducks/publications/actions';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CreatePost: React.FC = () => {
     const theme = useTheme();
@@ -63,34 +64,36 @@ const CreatePost: React.FC = () => {
     }
 
     return (
-        <Container>
-            <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
-            <BackButtonNavigator />
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                <Title style={{ marginTop: 10 }}>Criar publicação</Title>
-                {
-                    loading ?
-                        <ActivityIndicator />
-                        :
-                        <TouchableOpacity onPress={handleSubmit}>
-                            <Text style={{ color: theme.colors.primary }}>Criar</Text>
-                        </TouchableOpacity>
-                }
-            </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <Container>
+                <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
+                <BackButtonNavigator />
+                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Title style={{ marginTop: 10 }}>Criar publicação</Title>
+                    {
+                        loading ?
+                            <ActivityIndicator />
+                            :
+                            <TouchableOpacity onPress={handleSubmit}>
+                                <Text style={{ color: theme.colors.primary }}>Criar</Text>
+                            </TouchableOpacity>
+                    }
+                </View>
 
-            <TextInput
-                placeholder="Conteúdo da publicação"
-                multiline
-                textAlignVertical="top"
-                numberOfLines={12}
-                autoCapitalize="sentences"
-                autoCorrect={true}
-                errors={textInputErrors}
-                value={textInput}
-                onChangeText={text => setTextInput(text)}
-            />
-            <Caption style={{ marginLeft: "auto", marginTop: 10 }}>{255 - textInput.length} caracteres</Caption>
-        </Container>
+                <TextInput
+                    placeholder="Conteúdo da publicasdção"
+                    multiline
+                    textAlignVertical="top"
+                    numberOfLines={12}
+                    autoCapitalize="sentences"
+                    autoCorrect={true}
+                    errors={textInputErrors}
+                    value={textInput}
+                    onChangeText={text => setTextInput(text)}
+                />
+                <Caption style={{ marginLeft: "auto", marginTop: 10 }}>{255 - textInput.length} caracteres</Caption>
+            </Container>
+        </SafeAreaView>
     );
 }
 

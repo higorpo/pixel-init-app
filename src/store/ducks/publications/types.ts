@@ -22,8 +22,8 @@ export interface Publication {
         last_name: string,
         avatar: string
     },
-    created_at: Date,
-    updated_at: Date,
+    created_at: string,
+    updated_at: string,
     __meta__: {
         likes_count: number,
         comments_count: number

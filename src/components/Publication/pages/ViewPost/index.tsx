@@ -11,6 +11,7 @@ import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import Comment, { Comment as IComment } from '~/components/Comment';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface IViewPostParams {
     publication: IPublicationProps
@@ -33,7 +34,7 @@ const ViewPost: React.FC = () => {
      * State
      */
     const [loading, setLoading] = useState<boolean>(true);
-    const [loadingMore, setLoadingMore] = useState<boolean>(true);
+    const [loadingMore, setLoadingMore] = useState<boolean>(false);
     const [pagination, setPagination] = useState<{
         total: number,
         perPage: number,
@@ -97,6 +98,8 @@ const ViewPost: React.FC = () => {
                     .finally(() => {
                         setLoadingMore(false);
                     })
+            } else {
+                setLoadingMore(false);
             }
         }
     }
@@ -126,7 +129,7 @@ const ViewPost: React.FC = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
             <FlatList
                 data={comments}
@@ -155,7 +158,6 @@ const ViewPost: React.FC = () => {
                 }}
                 ListFooterComponent={() => {
                     if (!loadingMore || loading) return <View style={{ marginBottom: 10 }} />;
-
                     return (
                         <ActivityIndicator style={{ marginVertical: 10 }} />
                     )
@@ -169,7 +171,7 @@ const ViewPost: React.FC = () => {
                     <Text style={{ marginLeft: "auto", marginTop: 20 }}>Comentar</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

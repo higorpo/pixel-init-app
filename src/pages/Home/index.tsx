@@ -133,7 +133,7 @@ const Home: React.FC = () => {
                     <UserName>
                         {authentication.user?.first_name}
                     </UserName>
-                    <ProfileImage source={authentication?.user?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${authentication?.user?.avatar}` } : userProfile} />
+                    <ProfileImage source={authentication?.user?.avatar ? { uri: `http://54.197.125.89:3333/uploads/${authentication?.user?.avatar}` } : userProfile} />
                 </TouchableOpacity>
             </Header>
             <ScrollabeContainer>

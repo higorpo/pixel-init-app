@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Alert, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { BackButtonNavigator, ScrollabeContainer, TextInput } from '~/components';
 import { useTheme } from 'styled-components';
 import { Avatar, ActionButton } from './styles';
@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { IUser } from '~/pages/User';
 import * as ImagePicker from 'expo-image-picker';
 import AuthenticationActions from '~/store/ducks/authentication/actions';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const userProfile = require("assets/user-profile.png")
 
@@ -203,67 +204,69 @@ const EditProfile: React.FC = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ padding: 20, flexDirection: "row", justifyContent: "space-between", backgroundColor: theme.colors.background }}>
-                <BackButtonNavigator />
+        <SafeAreaView style={{ flex: 1 }}>
+            <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+                <View style={{ padding: 20, flexDirection: "row", justifyContent: "space-between", backgroundColor: theme.colors.background }}>
+                    <BackButtonNavigator />
+                    {
+                        loadingSave ?
+                            <ActivityIndicator />
+                            :
+                            <TouchableOpacity onPress={handleSubmit}>
+                                <Text>Salvar</Text>
+                            </TouchableOpacity>
+                    }
+                </View>
                 {
-                    loadingSave ?
-                        <ActivityIndicator />
-                        :
-                        <TouchableOpacity onPress={handleSubmit}>
-                            <Text>Salvar</Text>
-                        </TouchableOpacity>
-                }
-            </View>
-            {
-                loading ?
-                    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                        <ActivityIndicator size={40} />
-                    </View>
-                    :
-                    <ScrollabeContainer contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
-                        <Avatar source={data?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${data?.avatar}` } : userProfile} />
-                        <View style={{ flexDirection: "row" }}>
-                            {
-                                !data?.avatar ?
-                                    <ActionButton onPress={handleAddProfilePicture}>
-                                        <Text>Adicionar foto de perfil</Text>
-                                    </ActionButton>
-                                    :
-                                    <>
-                                        <ActionButton onPress={handleAddProfilePicture} style={{ marginRight: 5 }}>
-                                            <Text>Alterar foto</Text>
-                                        </ActionButton>
-                                        <ActionButton onPress={handleRemoveProfilePicture} style={{ marginLeft: 5, backgroundColor: '#D44638' }}>
-                                            <Text>Remover foto</Text>
-                                        </ActionButton>
-                                    </>
-                            }
+                    loading ?
+                        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                            <ActivityIndicator size={40} />
                         </View>
+                        :
+                        <ScrollabeContainer contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
+                            <Avatar source={data?.avatar ? { uri: `http://54.197.125.89:3333/uploads/${data?.avatar}` } : userProfile} />
+                            <View style={{ flexDirection: "row" }}>
+                                {
+                                    !data?.avatar ?
+                                        <ActionButton onPress={handleAddProfilePicture}>
+                                            <Text>Adicionar foto de perfil</Text>
+                                        </ActionButton>
+                                        :
+                                        <>
+                                            <ActionButton onPress={handleAddProfilePicture} style={{ marginRight: 5 }}>
+                                                <Text>Alterar foto</Text>
+                                            </ActionButton>
+                                            <ActionButton onPress={handleRemoveProfilePicture} style={{ marginLeft: 5, backgroundColor: '#D44638' }}>
+                                                <Text>Remover foto</Text>
+                                            </ActionButton>
+                                        </>
+                                }
+                            </View>
 
-                        <Caption style={{ marginTop: 30 }}>Conte um pouquinho sobre você</Caption>
-                        <TextInput
-                            multiline
-                            numberOfLines={8}
-                            textAlignVertical="top"
-                            style={{ marginTop: 10 }}
-                            value={aboutInput}
-                            onChangeText={text => setAboutInput(text)}
-                            errors={aboutInputErrors}
-                        />
-                        <Caption style={{ marginTop: 10 }}>Em que você trabalha?</Caption>
-                        <TextInput
-                            multiline
-                            numberOfLines={8}
-                            textAlignVertical="top"
-                            style={{ marginTop: 10 }}
-                            value={workInput}
-                            onChangeText={text => setWorkInput(text)}
-                            errors={workInputErrors}
-                        />
-                    </ScrollabeContainer>
-            }
-        </View>
+                            <Caption style={{ marginTop: 30 }}>Conte um pouquinho sobre você</Caption>
+                            <TextInput
+                                multiline
+                                numberOfLines={8}
+                                textAlignVertical="top"
+                                style={{ marginTop: 10 }}
+                                value={aboutInput}
+                                onChangeText={text => setAboutInput(text)}
+                                errors={aboutInputErrors}
+                            />
+                            <Caption style={{ marginTop: 10 }}>Em que você trabalha?</Caption>
+                            <TextInput
+                                multiline
+                                numberOfLines={8}
+                                textAlignVertical="top"
+                                style={{ marginTop: 10 }}
+                                value={workInput}
+                                onChangeText={text => setWorkInput(text)}
+                                errors={workInputErrors}
+                            />
+                        </ScrollabeContainer>
+                }
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 }
 

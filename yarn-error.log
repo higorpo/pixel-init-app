@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add expo-image-picker@~8.1.0
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/react-native-emoticons -D
 
 PATH: 
   C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Ruby23\bin;C:\Users\higor\AppData\Local\Programs\Python\Python36;C:\Users\higor\AppData\Local\Programs\Python\Python36\Lib;C:\Users\higor\AppData\Local\Programs\Python\Python36\DLLs;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Git\cmd;;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\PuTTY\;C:\Program Files (x86)\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Users\higor\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\higor\AppData\Local\Programs\Python\Python37-32\;C:\Users\higor\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\higor\AppData\Local\Programs\Python\Python36\;C:\Users\higor\AppData\Local\Microsoft\WindowsApps;C:\Users\higor\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Android\android-sdk-windows-1.6_r1\tools;C:\Users\higor\AppData\Local\Yarn\bin;C:\Program Files\Android\Sdk\platform-tools;C:\Program Files\Android\Sdk\tools;C:\Users\higor\AppData\Roaming\npm;
@@ -14,7 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\higor\Desktop\Arquivos\Pixel\Pixel Init\apps\mobile\node_modules\@babel\generator\node_modules\.bin'
+  Error: https://registry.yarnpkg.com/@types%2freact-native-emoticons: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65939:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140464:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141436:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141358:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
@@ -39,9 +49,11 @@ npm manifest:
       "expo-calendar": "~8.1.0",
       "expo-constants": "~9.0.0",
       "expo-font": "~8.1.0",
+      "expo-image-picker": "~8.1.0",
       "react": "~16.9.0",
       "react-dom": "~16.9.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+      "react-native-emoticons": "^1.0.13",
       "react-native-gesture-handler": "~1.6.0",
       "react-native-reanimated": "~1.7.0",
       "react-native-safe-area-context": "0.7.3",
@@ -1891,6 +1903,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
     integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
   
+  base-64@0.1.0:
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+    integrity sha1-eAqZyE59YAJgNhURxId2E78k9rs=
+  
   base64-js@^1.1.2, base64-js@^1.2.3:
     version "1.3.1"
     resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
@@ -2549,6 +2566,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.470.tgz#07ccfd481b96709f4ac20bb74bccf59705a41ced"
     integrity sha512-SQzHdpUUmTSiIYwMFZ3P3271VdRxfdHqh2GoBA7sqeaz4SN3UlTA22fC+r9BHu8FpB0oI7f8pAxzm75O/kBc3w==
   
+  emoji-datasource@^2.4.4:
+    version "2.4.4"
+    resolved "https://registry.yarnpkg.com/emoji-datasource/-/emoji-datasource-2.4.4.tgz#b97ac1896bc208ecf1833564a20687a5215d0389"
+    integrity sha1-uXrBiWvCCOzxgzVkogaHpSFdA4k=
+  
   encodeurl@~1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
@@ -2712,6 +2734,13 @@ Lockfile:
     dependencies:
       fbjs "1.0.0"
       fontfaceobserver "^2.1.0"
+  
+  expo-image-picker@~8.1.0:
+    version "8.1.0"
+    resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-8.1.0.tgz#014e4f4aaef4c1daf56d13de27a41ef78660aa15"
+    integrity sha512-UMHiDGiflg47A/nfnmJ1gYdB/sEoxB4STVGgMeLNYpUkVR59kUWqsGTyVEtSywNCLPuXPZVB9NaRUd81Rbs7lA==
+    dependencies:
+      expo-permissions "~8.1.0"
   
   expo-keep-awake@~8.1.0:
     version "8.1.0"
@@ -3098,6 +3127,18 @@ Lockfile:
     version "2.0.6"
     resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
     integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
+  
+  glob@7.0.6:
+    version "7.0.6"
+    resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
+    integrity sha1-IRuvr0nlJbjNkyYNFKsTYVKz9Xo=
+    dependencies:
+      fs.realpath "^1.0.0"
+      inflight "^1.0.4"
+      inherits "2"
+      minimatch "^3.0.2"
+      once "^1.3.0"
+      path-is-absolute "^1.0.0"
   
   glob@^7.1.1, glob@^7.1.2, glob@^7.1.3:
     version "7.1.6"
@@ -4131,7 +4172,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
     integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
   
-  minimatch@^3.0.4:
+  minimatch@^3.0.2, minimatch@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
     integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -4689,7 +4730,7 @@ Lockfile:
     dependencies:
       asap "~2.0.3"
   
-  prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+  prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4772,6 +4813,26 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
+  react-native-emoticons@^1.0.13:
+    version "1.0.13"
+    resolved "https://registry.yarnpkg.com/react-native-emoticons/-/react-native-emoticons-1.0.13.tgz#fcb8f6b89a309d9ce55ce71cd851e3a385ae675b"
+    integrity sha512-J+alpOXUDargjjDOdbad2GZaelyBIJo41fXGvVlW5EKPz7leWv41LU/rwLYmlU0NLDTlNYwOuaQnHncZvACUZg==
+    dependencies:
+      emoji-datasource "^2.4.4"
+      lodash "^4.17.4"
+      prop-types "^15.5.10"
+      react-native-fetch-blob "^0.10.5"
+      react-native-scrollable-tab-view "^0.8.0"
+      string.fromcodepoint "^0.2.1"
+  
+  react-native-fetch-blob@^0.10.5:
+    version "0.10.8"
+    resolved "https://registry.yarnpkg.com/react-native-fetch-blob/-/react-native-fetch-blob-0.10.8.tgz#4fc256abae0cb5f10e7c41f28c11b3ff330d72a9"
+    integrity sha1-T8JWq64MtfEOfEHyjBGz/zMNcqk=
+    dependencies:
+      base-64 "0.1.0"
+      glob "7.0.6"
+  
   react-native-gesture-handler@~1.6.0:
     version "1.6.1"
     resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.6.1.tgz#678e2dce250ed66e93af409759be22cd6375dd17"
@@ -4812,6 +4873,15 @@ Lockfile:
     integrity sha512-a0VzxOWot7F9B/GQyDSssBRd3jUJazFnTQS61IiyReWB6aHlFhf3Xz10jBRoURXy1EMCDCHgenmTVTkKHpKyqQ==
     dependencies:
       debounce "^1.2.0"
+  
+  react-native-scrollable-tab-view@^0.8.0:
+    version "0.8.0"
+    resolved "https://registry.yarnpkg.com/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-0.8.0.tgz#5cb1fcfce07bf530a3c81ab51fc5071144edac5c"
+    integrity sha512-8Q7v4f1WyV5cKqvV3QHxnLFRWV8gi24JW2T+Cfx++b3ctHxtJCkGg5Zs15ufYMxaN4W68iDkJrftVVAq0tqb8w==
+    dependencies:
+      create-react-class "^15.6.2"
+      prop-types "^15.6.0"
+      react-timer-mixin "^0.13.3"
   
   react-native-view-shot@3.1.2:
     version "3.1.2"
@@ -4892,7 +4962,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.4.3.tgz#966f1750c191672e76e16c2efa569150cc73ab53"
     integrity sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==
   
-  react-timer-mixin@^0.13.4:
+  react-timer-mixin@^0.13.3, react-timer-mixin@^0.13.4:
     version "0.13.4"
     resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
     integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
@@ -5502,6 +5572,11 @@ Lockfile:
     dependencies:
       is-fullwidth-code-point "^2.0.0"
       strip-ansi "^4.0.0"
+  
+  string.fromcodepoint@^0.2.1:
+    version "0.2.1"
+    resolved "https://registry.yarnpkg.com/string.fromcodepoint/-/string.fromcodepoint-0.2.1.tgz#8d978333c0bc92538f50f383e4888f3e5619d653"
+    integrity sha1-jZeDM8C8klOPUPOD5IiPPlYZ1lM=
   
   string_decoder@~1.1.1:
     version "1.1.1"

@@ -6,7 +6,7 @@ import { NotificationContainer } from './styles';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import { Title, Caption } from '~/components/Typography';
-import { isToday, isYesterday, differenceInDays, format } from 'date-fns';
+import { isToday, isYesterday, differenceInDays, format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import ConnectionRequest from '../ConnectionRequestNotification';
 
@@ -36,7 +36,8 @@ const Notification: React.FC<INotificationProps> = React.memo((props) => {
     }, [props])
 
     const dataTitle = useMemo(() => {
-        const date = new Date(props.data.created_at);
+        const date = parseISO(props.data.created_at);
+
 
         if (isToday(date)) {
             return "Hoje";
@@ -50,7 +51,7 @@ const Notification: React.FC<INotificationProps> = React.memo((props) => {
     }, [props])
 
     const dataTime = useMemo(() => {
-        const date = new Date(props.data.created_at);
+        const date = parseISO(props.data.created_at);
 
         return format(date, "HH:mm", { locale: ptBR });
     }, [props])

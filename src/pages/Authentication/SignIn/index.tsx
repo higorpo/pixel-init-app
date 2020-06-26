@@ -23,9 +23,9 @@ const SignIn: React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [fieldMail, setFieldMail] = useState<string>("higor.oliveira@ejpixel.com.br"); //  higor.oliveira@ejpixel.com.br
+    const [fieldMail, setFieldMail] = useState<string>("");
     const [fieldMailErrors, setFieldMailErrors] = useState<string[]>([]);
-    const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("RGJAURC5GQ"); //RGJAURC5GQ
+    const [fieldTicketNumber, setFieldTicketNumber] = useState<string>("");
     const [fieldTicketNumberErrors, setFieldTicketNumberErrors] = useState<string[]>([]);
 
     /**

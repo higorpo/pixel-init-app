@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { formatDistance } from 'date-fns';
+import { formatDistance, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import React, { useMemo, useState } from 'react';
 import { Alert, View, ViewProps, TouchableOpacity } from 'react-native';
@@ -40,7 +40,7 @@ const Publication: React.FC<IPublicationProps> = (props) => {
      * Memo
      */
     const formatedDate = useMemo(() => {
-        return formatDistance(new Date(props.data.created_at), new Date(), { locale: ptBR });
+        return formatDistance(parseISO(props.data.created_at), new Date(), { locale: ptBR });
     }, [props])
 
     /**
@@ -49,6 +49,8 @@ const Publication: React.FC<IPublicationProps> = (props) => {
     function handleLike() {
         setIsLiked(true);
         setLikesCount(oldLikes => ++oldLikes);
+        props.data.__meta__.likes_count++;
+        props.data.is_liked = true;
 
         api.post(`/publications/${props.data.id}/likes`, null, {
             headers: {
@@ -59,12 +61,16 @@ const Publication: React.FC<IPublicationProps> = (props) => {
                 Alert.alert("Erro", "Não foi possível curtir esta publicação!")
                 setIsLiked(false);
                 setLikesCount(oldLikes => --oldLikes);
+                props.data.__meta__.likes_count--;
+                props.data.is_liked = false;
             })
     }
 
     function handleUnlike() {
         setIsLiked(false);
         setLikesCount(oldLikes => --oldLikes);
+        props.data.__meta__.likes_count--;
+        props.data.is_liked = false;
 
         api.delete(`/publications/${props.data.id}/likes`, {
             headers: {
@@ -75,6 +81,8 @@ const Publication: React.FC<IPublicationProps> = (props) => {
                 Alert.alert("Erro", "Não foi possível curtir esta publicação!")
                 setIsLiked(true);
                 setLikesCount(oldLikes => ++oldLikes);
+                props.data.__meta__.likes_count++;
+                props.data.is_liked = true;
             })
     }
 
@@ -124,7 +132,7 @@ const Publication: React.FC<IPublicationProps> = (props) => {
     return (
         <Container onPress={handleOpenPost} {...props}>
             <PostDetails onPress={handleOpenProfile}>
-                <Avatar source={props.data.author.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.author.avatar}` } : userProfile} />
+                <Avatar source={props.data.author.avatar ? { uri: `http://54.197.125.89:3333/uploads/${props.data.author.avatar}` } : userProfile} />
                 <View style={{ flex: 1 }}>
                     <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
                         <Author>

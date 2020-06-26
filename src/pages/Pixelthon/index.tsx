@@ -45,7 +45,7 @@ const UserItem: React.FC<IUserItemProps> = React.memo((props) => {
 
     return (
         <UserContainer onPress={handleOpenProfile}>
-            <Avatar source={props.data.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.avatar}` } : userProfile} />
+            <Avatar source={props.data.avatar ? { uri: `http://54.197.125.89:3333/uploads/${props.data.avatar}` } : userProfile} />
             <Text>{props.data.first_name} {props.data.last_name}</Text>
         </UserContainer>
     )

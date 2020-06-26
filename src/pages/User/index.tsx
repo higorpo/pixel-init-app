@@ -10,6 +10,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { UserDetails, Avatar, ActionButton } from './styles';
 import { Text, Title, Caption } from '~/components/Typography';
 import { Linking } from 'expo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const userProfile = require("assets/user-profile.png")
 
@@ -132,7 +133,7 @@ const User: React.FC = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
             <View style={{ padding: 20, backgroundColor: theme.colors.background }}>
                 <BackButtonNavigator />
@@ -152,7 +153,7 @@ const User: React.FC = () => {
                         }
                         contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
                         <UserDetails>
-                            <Avatar source={data?.avatar ? { uri: `http://10.1.1.105:3333/uploads/${data?.avatar}` } : userProfile} />
+                            <Avatar source={data?.avatar ? { uri: `http://54.197.125.89:3333/uploads/${data?.avatar}` } : userProfile} />
                             <Title size={30} style={{ flex: 1, marginBottom: 0 }}>
                                 {data?.first_name} {data?.last_name}
                             </Title>
@@ -206,28 +207,28 @@ const User: React.FC = () => {
 
                         <Title style={{ marginTop: 30, marginBottom: 5 }}>Contato</Title>
                         {
-                            data?.is_connected_with_user ?
+                            data?.is_connected_with_user == true ?
                                 <>
                                     {
-                                        data?.whatsapp &&
+                                        (data?.whatsapp != null && data?.whatsapp.length != 0) &&
                                         <ActionButton onPress={() => handleOpen('whatsapp')} style={{ backgroundColor: "#34AF23" }}>
                                             <Text>WhatsApp</Text>
                                         </ActionButton>
                                     }
                                     {
-                                        data?.linkedin_url &&
+                                        (data?.linkedin_url != null && data?.linkedin_url.length != 0) &&
                                         <ActionButton onPress={() => handleOpen('linkedin')} style={{ backgroundColor: "#0E76A8" }}>
                                             <Text>LinkedIn</Text>
                                         </ActionButton>
                                     }
                                     {
-                                        data?.email &&
+                                        (data?.email != null && data?.email.length != 0) &&
                                         <ActionButton onPress={() => handleOpen('email')} style={{ backgroundColor: "#D44638" }}>
                                             <Text>E-mail</Text>
                                         </ActionButton>
                                     }
                                     {
-                                        data?.github_url &&
+                                        (data?.github_url != null && data?.github_url.length != 0) &&
                                         <ActionButton onPress={() => handleOpen('github')} style={{ backgroundColor: "#000" }}>
                                             <Text>GitHub</Text>
                                         </ActionButton>
@@ -238,7 +239,7 @@ const User: React.FC = () => {
                         }
                     </ScrollabeContainer>
             }
-        </View>
+        </SafeAreaView>
     );
 }
 

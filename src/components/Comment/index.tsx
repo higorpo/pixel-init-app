@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import { Container, CommentDetails, Author, Avatar, CreatedAt, CommentText } from './styles';
-import { formatDistance } from 'date-fns';
+import { formatDistance, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { AuthenticationState } from '~/store/ducks/authentication/types';
 import { useSelector } from 'react-redux';
@@ -15,8 +15,8 @@ export interface Comment {
     user_id: number,
     publication_id: number,
     text: string,
-    created_at: Date,
-    updated_at: Date,
+    created_at: string,
+    updated_at: string,
     author: {
         id: number,
         first_name: string,
@@ -44,7 +44,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
     * Memo
     */
     const formatedDate = useMemo(() => {
-        return formatDistance(new Date(props.data.created_at), new Date(), { locale: ptBR });
+        return formatDistance(parseISO(props.data.created_at), new Date(), { locale: ptBR });
     }, [props])
 
     /**
@@ -87,7 +87,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
 
     return (
         <Container>
-            <Avatar source={props.data.author.avatar ? { uri: `http://10.1.1.105:3333/uploads/${props.data.author.avatar}` } : userProfile} />
+            <Avatar source={props.data.author.avatar ? { uri: `http://54.197.125.89:3333/uploads/${props.data.author.avatar}` } : userProfile} />
             <View style={{ flex: 1 }}>
                 <CommentDetails>
                     <Author>

@@ -55,10 +55,29 @@ const Speech: React.FC = () => {
     /**
      * Functions
      */
-    async function getDefaultCalendarSource() {
+    async function getDefaultCalendar() {
         const calendars = await Calendar.getCalendarsAsync();
-        const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
-        return defaultCalendars[0].source;
+
+        // Verifica se o calendário do Pixel Init foi criado, se não foi, cria-o.
+        const pixelInitCalendar = calendars.find(calendar => calendar.name == "pixel-init-2020");
+
+        if (pixelInitCalendar) {
+            return pixelInitCalendar;
+        } else {
+            await Calendar.createCalendarAsync({
+                title: 'Pixel Init',
+                color: '#327E83',
+                entityType: Calendar.EntityTypes.EVENT,
+                //@ts-ignore
+                sourceId: undefined,
+                source: { isLocalAccount: true, name: 'Pixel Init' } as Calendar.Source,
+                name: 'pixel-init-2020',
+                ownerAccount: 'personal',
+                accessLevel: Calendar.CalendarAccessLevel.READ,
+            });
+
+            return calendars.find(calendar => calendar.name == "pixel-init-2020");
+        }
     }
 
     /**
@@ -68,23 +87,18 @@ const Speech: React.FC = () => {
     async function handleConfirmPresence() {
         const { status } = await Permissions.askAsync(Permissions.CALENDAR, Permissions.NOTIFICATIONS);
         if (status === 'granted') {
-            const calendars = await Calendar.getCalendarsAsync();
+            const defaultCalendar = Platform.OS == "ios" ? await Calendar.getDefaultCalendarAsync() : await getDefaultCalendar();
 
-            // Verifica se o calendário do Pixel Init foi criado, se não foi, cria-o.
-            const pixelInitCalendar = calendars.find(calendar => calendar.name == "pixel-init-2020");
-
-            if (pixelInitCalendar) {
+            if (defaultCalendar) {
                 // Verifica se o evento já foi criado, se já foi, não cria.
-                const events = await Calendar.getEventsAsync([pixelInitCalendar.id], speech.speech_day, new Date(new Date(speech.speech_day).setHours(speech.speech_day.getHours() + 1)));
-
-                console.log(events);
+                const events = await Calendar.getEventsAsync([defaultCalendar.id], speech.speech_day, new Date(new Date(speech.speech_day).setHours(speech.speech_day.getHours() + 1)));
 
                 const event = events.find(event => event.title == `Pixel Init - Palestra: ${speech.name}`);
 
                 if (event) {
                     Alert.alert("", "Você já confirmou presença neste evento e ele já foi adicionado a sua agenda!");
                 } else {
-                    await Calendar.createEventAsync(pixelInitCalendar.id, {
+                    await Calendar.createEventAsync(defaultCalendar.id, {
                         title: `Pixel Init - Palestra: ${speech.name}`,
                         startDate: speech.speech_day,
                         endDate: new Date(new Date(speech.speech_day).setHours(speech.speech_day.getHours() + 1)),
@@ -120,27 +134,10 @@ const Speech: React.FC = () => {
                         ]
                     })
 
-                    Alert.alert("Sucesso!", "Evento adicionado a sua agenda com sucesso!");
+                    Alert.alert("", "Evento adicionado a sua agenda com sucesso!");
                 }
             } else {
-                const defaultCalendarSource =
-                    Platform.OS === 'ios'
-                        ? await getDefaultCalendarSource()
-                        : { isLocalAccount: true, name: 'Pixel Init' };
-
-                await Calendar.createCalendarAsync({
-                    title: 'Pixel Init',
-                    color: '#327E83',
-                    entityType: Calendar.EntityTypes.EVENT,
-                    //@ts-ignore
-                    sourceId: defaultCalendarSource?.id,
-                    source: defaultCalendarSource as Calendar.Source,
-                    name: 'pixel-init-2020',
-                    ownerAccount: 'personal',
-                    accessLevel: Calendar.CalendarAccessLevel.READ,
-                });
-
-                handleConfirmPresence();
+                Alert.alert("", "Não é possível adicionar este evento a sua agenda!")
             }
         } else {
             Alert.alert("Erro", "Você precisa permitir o acesso a sua agenda para continuar!");
