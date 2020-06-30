@@ -184,7 +184,7 @@ const Pixelthon: React.FC = () => {
                                     });
                                 } else if (response.data.error == "OUT_OF_REGISTRATION_DATE") {
                                     Alert.alert("Fora do prazo de inscrição",
-                                        "O prazo de inscrição para o Pixelthon começa às 22h30 do dia 09/07 e vai até às 23h59 do dia 10/07!");
+                                        "O prazo de inscrição para o Pixelthon começa às 22h30 do dia 09/07 e vai até às 23h59 do dia 13/07!");
                                     setData((oldState: any) => {
                                         return { ...oldState, is_within_the_application_deadline: false }
                                     });
@@ -254,14 +254,14 @@ const Pixelthon: React.FC = () => {
                                                     <View style={{ marginTop: 20 }}>
                                                         <Text style={{ color: "#F45656" }}>
                                                             Poxa, que pena! O Pixelthon já atingiu o número máximo de inscritos e infelizmente não está aceitando novas inscrições!
-                                            </Text>
+                                                        </Text>
                                                     </View>
                                                     :
                                                     data?.is_participant ?
                                                         <View style={{ marginTop: 20 }}>
                                                             <Text style={{ color: "#1EE21B" }}>
                                                                 Sua inscrição para o Pixelthon está confirmada, aguarde para mais informações!
-                                                </Text>
+                                                            </Text>
                                                         </View>
                                                         :
                                                         <View style={{ marginTop: 20 }}>
@@ -272,14 +272,14 @@ const Pixelthon: React.FC = () => {
                                                                 onPress={handleSubscribe}
                                                             />
                                                             <Caption style={{ fontSize: 10, marginTop: 10 }}>
-                                                                As inscrições estarão abertas a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
-                                                </Caption>
+                                                                As inscrições estarão abertas a partir das 22h30 do dia 09/07 até às 23h59 do dia 13/07.
+                                                            </Caption>
                                                         </View>
                                                 :
                                                 <View style={{ marginTop: 20 }}>
                                                     <Text style={{ color: "#F45656" }}>
-                                                        Você está fora do prazo de inscrição para o Pixelthon! Volte aqui a partir das 22h30 do dia 09/07 até às 23h59 do dia 10/07.
-                                        </Text>
+                                                        Você está fora do prazo de inscrição para o Pixelthon! Volte aqui a partir das 22h30 do dia 09/07 até às 23h59 do dia 13/07.
+                                                    </Text>
                                                 </View>
                                         }
                                     </View>

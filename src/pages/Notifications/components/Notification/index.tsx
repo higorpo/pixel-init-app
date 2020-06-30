@@ -36,25 +36,26 @@ const Notification: React.FC<INotificationProps> = React.memo((props) => {
     }, [props])
 
     const dataTitle = useMemo(() => {
-        const date = parseISO(props.data.created_at);
+        const parsedDate = parseISO(props.data.created_at);
 
 
-        if (isToday(date)) {
+        if (isToday(parsedDate)) {
             return "Hoje";
-        } else if (isYesterday(date)) {
+        } else if (isYesterday(parsedDate)) {
             return "Ontem";
-        } else if (differenceInDays(new Date(), date) <= 7) {
-            return format(date, "cccc", { locale: ptBR });
+        } else if (differenceInDays(new Date(), parsedDate) <= 7) {
+            return format(parsedDate, "cccc", { locale: ptBR });
         } else {
-            return format(date, "cccc, dd/MM", { locale: ptBR });
+            return format(parsedDate, "cccc, dd/MM", { locale: ptBR });
         }
     }, [props])
 
-    const dataTime = useMemo(() => {
-        const date = parseISO(props.data.created_at);
+    // const dataTime = useMemo(() => {
+    //     const parsedDate = parseISO(props.data.created_at);
+    //     const utcDate = zonedTimeToUtc(parsedDate, 'UTC');
 
-        return format(date, "HH:mm", { locale: ptBR });
-    }, [props])
+    //     return format(utcDate, "HH:mm", { locale: ptBR });
+    // }, [props])
 
     return (
         <View>
@@ -63,7 +64,7 @@ const Notification: React.FC<INotificationProps> = React.memo((props) => {
                     {dataTitle}
                 </Title>
             }
-            <Caption style={{ marginBottom: 3 }}>{dataTime}</Caption>
+            {/* <Caption style={{ marginBottom: 3 }}>{dataTime}</Caption> */}
             <NotificationContainer>
                 {
                     props.data.type == "alert" ?

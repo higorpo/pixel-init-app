@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Alert, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { View, TouchableOpacity, Alert, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { BackButtonNavigator, ScrollabeContainer, TextInput } from '~/components';
 import { useTheme } from 'styled-components';
 import { Avatar, ActionButton } from './styles';
@@ -205,7 +205,7 @@ const EditProfile: React.FC = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : undefined} style={{ flex: 1 }}>
                 <View style={{ padding: 20, flexDirection: "row", justifyContent: "space-between", backgroundColor: theme.colors.background }}>
                     <BackButtonNavigator />
                     {
@@ -266,7 +266,7 @@ const EditProfile: React.FC = () => {
                         </ScrollabeContainer>
                 }
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 

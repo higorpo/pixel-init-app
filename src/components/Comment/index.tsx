@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store';
 import { Text } from '../Typography';
 import api from '~/services/api';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 const userProfile = require("assets/user-profile.png")
 export interface Comment {
@@ -43,9 +44,11 @@ const Comment: React.FC<ICommentProps> = (props) => {
     /**
     * Memo
     */
-    const formatedDate = useMemo(() => {
-        return formatDistance(parseISO(props.data.created_at), new Date(), { locale: ptBR });
-    }, [props])
+    // const formatedDate = useMemo(() => {
+    //     const parsedDate = parseISO(props.data.created_at);
+    //     const utcDate = zonedTimeToUtc(parsedDate, 'UTC');
+    //     return formatDistance(utcDate, new Date(), { locale: ptBR });
+    // }, [props])
 
     /**
      * Handles
@@ -93,7 +96,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
                     <Author>
                         {props.data.author.first_name} {props.data.author.last_name}
                     </Author>
-                    <CreatedAt>{formatedDate}</CreatedAt>
+                    {/* <CreatedAt>{formatedDate}</CreatedAt> */}
                     {
                         (authentication.user?.id == props.data?.author?.id || authentication.user?.is_admin == true) &&
                         <TouchableOpacity activeOpacity={0.8} onPress={handleDeletePost}>

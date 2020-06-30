@@ -2,6 +2,11 @@
   "expo": {
     "name": "Pixel Init",
     "slug": "pixel-init",
+    "description": "Aplicativo usado no evento Pixel Init, edição 2020.",
+    "owner": "higorpo",
+    "privacy": "unlisted",
+    "githubUrl": "https://github.com/higorpo/pixel-init-app",
+    "primaryColor": "#327E83",
     "platforms": [
       "ios",
       "android",
@@ -13,7 +18,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#327E83"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,15 +27,23 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "br.com.ejpixel.pixelinit",
       "supportsTablet": true
     },
     "androidStatusBar": {
       "barStyle": "light-content",
-      "backgroundColor": "#121214"
+      "backgroundColor": "#327E83"
     },
     "androidNavigationBar": {
       "barStyle": "light-content",
       "backgroundColor": "#121214"
+    },
+    "android": {
+      "package": "br.com.ejpixel.pixelinit",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-icon.png",
+        "backgroundColor": "#327E83"
+      }
     }
   }
 }

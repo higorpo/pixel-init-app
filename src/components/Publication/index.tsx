@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { formatDistance, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import ptBR from 'date-fns/locale/pt-BR';
 import React, { useMemo, useState } from 'react';
 import { Alert, View, ViewProps, TouchableOpacity } from 'react-native';
@@ -40,7 +41,8 @@ const Publication: React.FC<IPublicationProps> = (props) => {
      * Memo
      */
     const formatedDate = useMemo(() => {
-        return formatDistance(parseISO(props.data.created_at), new Date(), { locale: ptBR });
+        const parsedDate = parseISO(props.data.created_at);
+        return format(parsedDate, 'dd/MM/yyyy', { locale: ptBR });
     }, [props])
 
     /**
