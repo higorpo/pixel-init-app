@@ -28,74 +28,74 @@ const speeches: ISpeech[] = [
         category: "academic",
         speech_day: new Date(2020, 6, 9, 18, 45),
         name: "Por que escolher a pesquisa em tecnologia com um mercado tão promissor?",
-        presenter: "Jean Martina e Fernanda Gomes",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        presenter: "Jean Martina, Fernanda Gomes e Thais Idalino",
+        presenter_description: "Jean é doutor em ciência da computação pela Cambridge University e Newton Advanced Fellow of the Royal SOciety; Fernanda é Mestre e Doutoranda em Ciência da Computação pela Universidade Federal de Santa Catarina com área de pesquisa em Privacidade de Dados; Thais é Doutora em Ciência da Computação pela Universidade de Ottawa e pós-doutoranda pela Simon Fraser University, Canadá",
+        speech_description: "Nesta talk, os convidados trarão suas experiências no meio acadêmico da área de TI. Cada um com sua trajetória, todos decidiram seguir a área acadêmica mesmo estando num setor com mercado tão privilegiado. Vamos entender as motivações!"
     },
     {
         category: "technician",
         speech_day: new Date(2020, 6, 9, 19, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "De Sistemas para o mundo!",
+        presenter: "Camila Maia",
+        presenter_description: "Backend engineer na Loadsmart",
+        speech_description: "Apesar de ter backend como foco de trabalho, e conteúdo preferido, Camila gosta de aprender com diferentes áreas com as quais tem contato no trabalho. Vamos conhecer mais do trabalho de Camila que já trabalhou em laboratórios da UFSC, startup brasileira, húngara e agora americana!"
     },
     {
         category: "market",
         speech_day: new Date(2020, 6, 9, 20, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "Tecnologia: escalando uma indústria analógica",
+        presenter: "Rodrigo Regis",
+        presenter_description: "Empreendedor com 20 anos de mercado financeiro. Trading desk head. Chief Product Owner. Sócio da XP Investimentos por 11 anos.",
+        speech_description: "O papel da tecnologia em uma indústria analógica! Rodrigo vai conversar com a gente sobre como foi liderar o setor de tecnologia numa empresa de setor tradicional do mercado."
     },
     {
         category: "academic",
         speech_day: new Date(2020, 6, 16, 18, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "Faculdade de TI não te prepara para o mercado?",
+        presenter: "Jean Hauck",
+        presenter_description: "Jean é doutor em Engenharia do Conhecimento, com área de pesquisa em Engenharia de Software. Atualmente é professor e vice coordenador do curso de Sistemas de Informação da UFSC. Foi pesquisador visitante no Regulated Software Research Centre na Dundalk Institute of Technology, Irlanda",
+        speech_description: "Nesta talk, o professor Jean vem apresentar alguns contrapontos ao discurso muito reproduzido de que a faculdade não prepara o aluno para o mercado de TI, e que este apresenta uma realidade muito diferente do ensinado em sala de aula."
     },
     {
         category: "technician",
         speech_day: new Date(2020, 6, 16, 19, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "Kanban: criando uma cultura de aprimoramento contínuo",
+        presenter: "Roberta Lingnau de Oliveira",
+        presenter_description: "Project Manager na Cheesecake Labs. Team Kanbam Practitioner pela Kanbam University",
+        speech_description: "Roberta apresenta o Kanban nessa talk! Vamos entender como a metodologia é utilizada no gerenciamento de projetos e quais seus benefícios. Vamos com quem entende do assunto!"
     },
     {
         category: "market",
         speech_day: new Date(2020, 6, 16, 20, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "Escalando um time de tecnologia focado em retenção",
+        presenter: "Andrio Frizon",
+        presenter_description: "Head of people na Jungle Devs",
+        speech_description: "Andrio nos conta como é formado o time Jungle Devs, uma empresa que não possui um marketing de recrutamento convencional. Como atraem e por quê as pessoas permanecem? Vamos descobrir!"
     },
     {
         category: "academic",
         speech_day: new Date(2020, 6, 23, 18, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "O INE e a pesquisa científica: uma visão geral e os primeiros passos para contribuir para o avanço da ciência",
+        presenter: "Márcio Castro",
+        presenter_description: "Márcio é Doutor em Ciência da Computação, com área de pesquisa em processamento paralelo e distribuído. Doutor em Ciência da Computação pela Université de Grenoble, França. Atualmente é pesquisador do Programa de Pós-graduação em Ciência da Computação da Universidade Federal de Santa Catarina (UFSC) e Docente do Departamento de Informática e Estatística (INE)",
+        speech_description: "Professor Márcio aborda, nessa talk, algumas das pesquisas científicas desenvolvidas no Departamento de Informática e Estatística da UFSC. Além disso, nos traz um panorama geral dos primeiros passos no mundo da ciência."
     },
     {
         category: "technician",
         speech_day: new Date(2020, 6, 23, 19, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: "Ciência de dados: por onde começar?",
+        presenter: "Júlia Nakayama",
+        presenter_description: "Analista de dados na Linx. Formada em sistemas de inofmração pela UFSC.",
+        speech_description: "Júlia nos apresenta nessa talk os primeiros passos para entender o trabalho com dados e ferramentas que podem ajudar nesse processo! "
     },
     {
         category: "market",
         speech_day: new Date(2020, 6, 23, 20, 45),
-        name: "Nome da palestra",
-        presenter: "Nome da pessoa",
-        presenter_description: "programador na Netflix",
-        speech_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
+        name: "Quando estou pronto para ir para uma empresa renomada?",
+        presenter: "Felipe Barbosa",
+        presenter_description: "Senior Software Engineer na Netflix. Trabalhou no Spotify de 2012 a 2018 no time de engenharia de software.",
+        speech_description: "Nesta talk, vamos conhecer a carreira do Felipe e como (e quando) ele percebeu que estava pronto para entrar numa empresa de nível internacional e grande renome. Um incentivo à nos desafiarmos."
+    }
 ]
 
 const Home: React.FC = () => {
